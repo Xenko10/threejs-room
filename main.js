@@ -49,18 +49,20 @@ const floor = new THREE.Mesh(
 floor.rotation.x = -Math.PI / 2;
 scene.add(floor);
 
+const wallTexture = loader.load("./img/wall.jpg");
+
 const walls = new THREE.Group();
 walls.add(
   new THREE.Mesh(
     new THREE.BoxGeometry(5.2, 2.5, 0.2),
     new THREE.MeshPhongMaterial({
-      color: 0x808080,
+      map: wallTexture,
     })
   ),
   new THREE.Mesh(
     new THREE.BoxGeometry(4.2, 2.5, 0.2),
     new THREE.MeshPhongMaterial({
-      color: 0x808080,
+      map: wallTexture,
     })
   )
 );
@@ -73,7 +75,16 @@ scene.add(walls);
 
 // lights
 
-const ambientLight = new THREE.AmbientLight(0x404040, 10);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.75);
+directionalLight.position.set(2.5, 2.5, 1);
+scene.add(directionalLight);
+
+// const directionalLightHelper = new THREE.DirectionalLightHelper(
+//   directionalLight
+// );
+// scene.add(directionalLightHelper);
+
+const ambientLight = new THREE.AmbientLight(0x404040, 5);
 
 scene.add(ambientLight);
 
