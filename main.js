@@ -38,7 +38,7 @@ const objLoader = new OBJLoader();
 
 // meshes
 
-const floorTexture = loader.load("./img/floor.jpg");
+const floorTexture = loader.load("./assets/img/floor.jpg");
 floorTexture.wrapS = THREE.RepeatWrapping;
 floorTexture.wrapT = THREE.RepeatWrapping;
 floorTexture.repeat.set(5, 3); // Adjust the repeat values as needed
@@ -52,7 +52,7 @@ const floor = new THREE.Mesh(
 floor.rotation.x = -Math.PI / 2;
 scene.add(floor);
 
-const wallTexture = loader.load("./img/wall.jpg");
+const wallTexture = loader.load("./assets/img/wall.jpg");
 
 const walls = new THREE.Group();
 walls.add(
@@ -77,7 +77,7 @@ walls.children[1].rotation.y = Math.PI / 2;
 scene.add(walls);
 
 objLoader.load(
-  "models/door.obj",
+  "./assets/models/door.obj",
   (object) => {
     object.traverse((child) => {
       object.position.set(-2.4, 0, 1);
