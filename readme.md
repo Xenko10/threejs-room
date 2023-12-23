@@ -7,4 +7,5 @@
 - [ ] clock on the wall
 - [ ] door
 - [ ] wardrobe
+- [ ] music instrument (you can click it for sound effects)
 - [ ] try to write code as clean as possible
