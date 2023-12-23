@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
 
@@ -34,7 +34,7 @@ const stats = new Stats();
 document.body.appendChild(stats.dom);
 
 const loader = new THREE.TextureLoader();
-const objLoader = new OBJLoader();
+const fbxLoader = new FBXLoader();
 
 // meshes
 
@@ -76,14 +76,17 @@ walls.children[1].position.y = 1.35;
 walls.children[1].rotation.y = Math.PI / 2;
 scene.add(walls);
 
-objLoader.load(
-  "./assets/models/door.obj",
+fbxLoader.load(
+  "./assets/models/door.fbx",
   (object) => {
     object.traverse((child) => {
-      object.position.set(-2.4, 0, 1);
-      child.castShadow = true;
-      child.receiveShadow = true;
+      if (child.isMesh) {
+        child.material = new THREE.MeshPhongMaterial();
+      }
     });
+    object.scale.set(0.01, 0.01, 0.01);
+    object.position.set(-2.4, 0, 1);
+    object.rotation.y = Math.PI;
     scene.add(object);
   },
   (xhr) => {
@@ -105,7 +108,7 @@ scene.add(directionalLight);
 // );
 // scene.add(directionalLightHelper);
 
-const ambientLight = new THREE.AmbientLight(0x404040, 5);
+const ambientLight = new THREE.AmbientLight(0x404040, 2);
 
 scene.add(ambientLight);
 
