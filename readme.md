@@ -5,10 +5,11 @@
 - [ ] desk with a book and a lamp (you can click on the lamp to turn it on/off)
 - [ ] frame with some photo
 - [ ] clock on the wall
-- [ ] door
+- [x] door
 - [ ] wardrobe
 - [ ] music instrument (you can click it for sound effects)
 - [ ] mirror
 - [ ] loading screen
 - [ ] laptop / computer setup
+- [ ] make camera look only in certain range
 - [ ] try to write code as clean as possible
