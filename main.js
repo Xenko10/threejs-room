@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
 
@@ -32,6 +33,7 @@ const stats = new Stats();
 document.body.appendChild(stats.dom);
 
 const loader = new THREE.TextureLoader();
+const objLoader = new OBJLoader();
 
 // meshes
 
@@ -72,6 +74,24 @@ walls.children[1].position.x = -2.5;
 walls.children[1].position.y = 1.35;
 walls.children[1].rotation.y = Math.PI / 2;
 scene.add(walls);
+
+objLoader.load(
+  "models/door.obj",
+  (object) => {
+    object.traverse((child) => {
+      object.position.set(-2.4, 0, 1);
+      child.castShadow = true;
+      child.receiveShadow = true;
+    });
+    scene.add(object);
+  },
+  (xhr) => {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  (error) => {
+    console.log(error);
+  }
+);
 
 // lights
 
