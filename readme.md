@@ -7,3 +7,4 @@
 - [ ] clock on the wall
 - [ ] door
 - [ ] wardrobe
+- [ ] try to write code as clean as possible
