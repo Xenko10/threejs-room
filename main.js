@@ -97,6 +97,28 @@ fbxLoader.load(
   }
 );
 
+fbxLoader.load(
+  "./assets/models/bed.fbx",
+  (object) => {
+    console.log(object);
+    object.traverse((child) => {
+      if (child.isMesh) {
+        // child.material = new THREE.MeshPhongMaterial();
+      }
+    });
+    object.scale.set(0.01, 0.01, 0.01);
+    object.rotation.y = Math.PI;
+    object.position.set(0.75, 0.08, 2);
+    scene.add(object);
+  },
+  (xhr) => {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  (error) => {
+    console.log(error);
+  }
+);
+
 // lights
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.75);
