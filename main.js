@@ -44,7 +44,7 @@ floorTexture.wrapT = THREE.RepeatWrapping;
 floorTexture.repeat.set(5, 3); // Adjust the repeat values as needed
 
 const floor = new THREE.Mesh(
-  new THREE.BoxGeometry(5.2, 4.2, 0.2),
+  new THREE.BoxGeometry(6.2, 5.2, 0.2),
   new THREE.MeshPhongMaterial({
     map: floorTexture,
   })
@@ -57,21 +57,21 @@ const wallTexture = loader.load("./assets/img/wall.jpg");
 const walls = new THREE.Group();
 walls.add(
   new THREE.Mesh(
-    new THREE.BoxGeometry(5.2, 2.5, 0.2),
+    new THREE.BoxGeometry(6.2, 2.5, 0.2),
     new THREE.MeshPhongMaterial({
       map: wallTexture,
     })
   ),
   new THREE.Mesh(
-    new THREE.BoxGeometry(4.2, 2.5, 0.2),
+    new THREE.BoxGeometry(5.2, 2.5, 0.2),
     new THREE.MeshPhongMaterial({
       map: wallTexture,
     })
   )
 );
 walls.children[0].position.y = 1.35;
-walls.children[0].position.z = -2;
-walls.children[1].position.x = -2.5;
+walls.children[0].position.z = -2.5;
+walls.children[1].position.x = -3;
 walls.children[1].position.y = 1.35;
 walls.children[1].rotation.y = Math.PI / 2;
 scene.add(walls);
@@ -85,7 +85,7 @@ fbxLoader.load(
       }
     });
     object.scale.set(0.01, 0.01, 0.01);
-    object.position.set(-2.4, 0, 1);
+    object.position.set(-2.9, 0, 1.5);
     object.rotation.y = Math.PI;
     scene.add(object);
   },
@@ -108,7 +108,7 @@ fbxLoader.load(
     });
     object.scale.set(0.01, 0.01, 0.01);
     object.rotation.y = Math.PI / 2;
-    object.position.set(-4.25, 0.08, 1.25);
+    object.position.set(-4.75, 0.08, 0.8);
     scene.add(object);
   },
   (xhr) => {
@@ -129,7 +129,7 @@ fbxLoader.load(
       }
     });
     object.scale.set(0.01, 0.01, 0.01);
-    object.position.set(0.75, 0.1, -1.5);
+    object.position.set(0.25, 0.1, -2);
     object.rotation.y = Math.PI / 2;
     scene.add(object);
   },
@@ -151,8 +151,30 @@ fbxLoader.load(
       }
     });
     object.scale.set(0.01, 0.01, 0.01);
-    object.position.set(0.45, -0.1, -1.15);
+    object.position.set(0, -0.1, -1.75);
     object.rotation.y = Math.PI;
+    scene.add(object);
+  },
+  (xhr) => {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  (error) => {
+    console.log(error);
+  }
+);
+
+fbxLoader.load(
+  "./assets/models/wardrobe.fbx",
+  (object) => {
+    console.log(object);
+    object.traverse((child) => {
+      if (child.isMesh) {
+        child.material = new THREE.MeshPhongMaterial();
+      }
+    });
+    object.scale.set(0.001, 0.001, 0.001);
+    object.position.set(2.2, 0.1, -2);
+    object.rotation.y = 2 * Math.PI;
     scene.add(object);
   },
   (xhr) => {
