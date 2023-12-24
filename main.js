@@ -57,24 +57,63 @@ const wallTexture = loader.load("./assets/img/wall.jpg");
 const walls = new THREE.Group();
 walls.add(
   new THREE.Mesh(
-    new THREE.BoxGeometry(6.2, 2.5, 0.2),
+    new THREE.BoxGeometry(5.2, 2.5, 0.2),
     new THREE.MeshPhongMaterial({
       map: wallTexture,
     })
   ),
   new THREE.Mesh(
-    new THREE.BoxGeometry(5.2, 2.5, 0.2),
+    new THREE.BoxGeometry(2.4, 2.5, 0.2),
+    new THREE.MeshPhongMaterial({
+      map: wallTexture,
+    })
+  ),
+  new THREE.Mesh(
+    new THREE.BoxGeometry(2.4, 2.5, 0.2),
+    new THREE.MeshPhongMaterial({
+      map: wallTexture,
+    })
+  ),
+  new THREE.Mesh(
+    new THREE.BoxGeometry(1.4, 0.9, 0.2),
+    new THREE.MeshPhongMaterial({
+      map: wallTexture,
+    })
+  ),
+  new THREE.Mesh(
+    new THREE.BoxGeometry(1.4, 0.6, 0.2),
     new THREE.MeshPhongMaterial({
       map: wallTexture,
     })
   )
 );
+walls.children[0].position.x = -3;
 walls.children[0].position.y = 1.35;
-walls.children[0].position.z = -2.5;
-walls.children[1].position.x = -3;
+walls.children[0].rotation.y = Math.PI / 2;
+walls.children[1].position.x = -1.8;
 walls.children[1].position.y = 1.35;
-walls.children[1].rotation.y = Math.PI / 2;
+walls.children[1].position.z = -2.5;
+walls.children[2].position.x = 1.9;
+walls.children[2].position.y = 1.35;
+walls.children[2].position.z = -2.5;
+walls.children[3].position.y = 0.55;
+walls.children[3].position.z = -2.5;
+walls.children[4].position.y = 2.3;
+walls.children[4].position.z = -2.5;
 scene.add(walls);
+
+const wallWindow = new THREE.Mesh(
+  new THREE.BoxGeometry(1.3, 1, 0.01),
+  new THREE.MeshPhongMaterial({
+    color: 0xacdde7,
+    transparent: true,
+    opacity: 0.25,
+  })
+);
+wallWindow.position.x = 0.05;
+wallWindow.position.y = 1.5;
+wallWindow.position.z = -2.5;
+scene.add(wallWindow);
 
 fbxLoader.load(
   "./assets/models/door.fbx",
@@ -100,7 +139,6 @@ fbxLoader.load(
 fbxLoader.load(
   "./assets/models/bed.fbx",
   (object) => {
-    console.log(object);
     object.traverse((child) => {
       if (child.isMesh) {
         // child.material = new THREE.MeshPhongMaterial();
@@ -122,14 +160,13 @@ fbxLoader.load(
 fbxLoader.load(
   "./assets/models/desk.fbx",
   (object) => {
-    console.log(object);
     object.traverse((child) => {
       if (child.isMesh) {
         // child.material = new THREE.MeshPhongMaterial();
       }
     });
     object.scale.set(0.01, 0.01, 0.01);
-    object.position.set(0.25, 0.1, -2);
+    object.position.set(0.05, 0.1, -2);
     object.rotation.y = Math.PI / 2;
     scene.add(object);
   },
@@ -144,14 +181,13 @@ fbxLoader.load(
 fbxLoader.load(
   "./assets/models/chair.fbx",
   (object) => {
-    console.log(object);
     object.traverse((child) => {
       if (child.isMesh) {
         // child.material = new THREE.MeshPhongMaterial();
       }
     });
     object.scale.set(0.01, 0.01, 0.01);
-    object.position.set(0, -0.1, -1.75);
+    object.position.set(-0.25, -0.1, -1.75);
     object.rotation.y = Math.PI;
     scene.add(object);
   },
@@ -166,7 +202,6 @@ fbxLoader.load(
 fbxLoader.load(
   "./assets/models/wardrobe.fbx",
   (object) => {
-    console.log(object);
     object.traverse((child) => {
       if (child.isMesh) {
         child.material = new THREE.MeshPhongMaterial();
@@ -174,7 +209,6 @@ fbxLoader.load(
     });
     object.scale.set(0.001, 0.001, 0.001);
     object.position.set(2.2, 0.1, -2);
-    object.rotation.y = 2 * Math.PI;
     scene.add(object);
   },
   (xhr) => {
@@ -188,13 +222,13 @@ fbxLoader.load(
 // lights
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight.position.set(2.5, 2.5, 1);
+directionalLight.position.set(3.5, 3.5, 1);
 scene.add(directionalLight);
 
-// const directionalLightHelper = new THREE.DirectionalLightHelper(
-//   directionalLight
-// );
-// scene.add(directionalLightHelper);
+const directionalLightHelper = new THREE.DirectionalLightHelper(
+  directionalLight
+);
+scene.add(directionalLightHelper);
 
 const ambientLight = new THREE.AmbientLight(0x404040, 2);
 
