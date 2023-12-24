@@ -43,7 +43,7 @@ const fbxLoader = new FBXLoader();
 const floorTexture = loader.load("./assets/img/floor.jpg");
 floorTexture.wrapS = THREE.RepeatWrapping;
 floorTexture.wrapT = THREE.RepeatWrapping;
-floorTexture.repeat.set(5, 3); // Adjust the repeat values as needed
+floorTexture.repeat.set(5, 3);
 
 const floor = new THREE.Mesh(
   new THREE.BoxGeometry(6.2, 5.2, 0.2),
@@ -124,22 +124,31 @@ wallWindow.position.y = 1.5;
 wallWindow.position.z = -2.5;
 scene.add(wallWindow);
 
+const doorWoodTexture = loader.load("./assets/models/txt/wood.jpg");
+
 fbxLoader.load(
   "./assets/models/door.fbx",
   (object) => {
     object.traverse((child) => {
       if (child.isMesh) {
-        child.material = new THREE.MeshPhongMaterial();
+        console.log(child.name);
         child.receiveShadow = true;
+      }
+      if (child.name === "Door1" || child.name === "Frame2") {
+        child.material = new THREE.MeshStandardMaterial({
+          map: doorWoodTexture,
+        });
+      } else {
+        child.material = new THREE.MeshStandardMaterial();
       }
     });
     object.scale.set(0.01, 0.01, 0.01);
-    object.position.set(-2.9, 0, 1.5);
+    object.position.set(-2.9, 0.1, 1.5);
     object.rotation.y = Math.PI;
     scene.add(object);
   },
   (xhr) => {
-    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    console.log("Door: " + (xhr.loaded / xhr.total) * 100 + "% loaded");
   },
   (error) => {
     console.log(error);
@@ -159,7 +168,7 @@ fbxLoader.load(
     scene.add(object);
   },
   (xhr) => {
-    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    console.log("Bed: " + (xhr.loaded / xhr.total) * 100 + "% loaded");
   },
   (error) => {
     console.log(error);
@@ -179,7 +188,7 @@ fbxLoader.load(
     scene.add(object);
   },
   (xhr) => {
-    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    console.log("Desk: " + (xhr.loaded / xhr.total) * 100 + "% loaded");
   },
   (error) => {
     console.log(error);
@@ -190,6 +199,7 @@ fbxLoader.load(
   "./assets/models/chair.fbx",
   (object) => {
     object.traverse((child) => {
+      child.material = new THREE.MeshPhongMaterial();
       child.receiveShadow = true;
       child.castShadow = true;
     });
@@ -199,7 +209,7 @@ fbxLoader.load(
     scene.add(object);
   },
   (xhr) => {
-    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    console.log("Chair: " + (xhr.loaded / xhr.total) * 100 + "% loaded");
   },
   (error) => {
     console.log(error);
@@ -221,7 +231,7 @@ fbxLoader.load(
     scene.add(object);
   },
   (xhr) => {
-    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    console.log("Wardrobe: " + (xhr.loaded / xhr.total) * 100 + "% loaded");
   },
   (error) => {
     console.log(error);
