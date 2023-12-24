@@ -6,7 +6,7 @@
 - [ ] frame with some photo
 - [ ] clock on the wall
 - [x] door
-- [ ] wardrobe
+- [x] wardrobe
 - [ ] music instrument (you can click it for sound effects)
 - [ ] mirror
 - [ ] loading screen
