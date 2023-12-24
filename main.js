@@ -107,8 +107,52 @@ fbxLoader.load(
       }
     });
     object.scale.set(0.01, 0.01, 0.01);
+    object.rotation.y = Math.PI / 2;
+    object.position.set(-4.25, 0.08, 1.25);
+    scene.add(object);
+  },
+  (xhr) => {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  (error) => {
+    console.log(error);
+  }
+);
+
+fbxLoader.load(
+  "./assets/models/desk.fbx",
+  (object) => {
+    console.log(object);
+    object.traverse((child) => {
+      if (child.isMesh) {
+        // child.material = new THREE.MeshPhongMaterial();
+      }
+    });
+    object.scale.set(0.01, 0.01, 0.01);
+    object.position.set(0.75, 0.1, -1.5);
+    object.rotation.y = Math.PI / 2;
+    scene.add(object);
+  },
+  (xhr) => {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  (error) => {
+    console.log(error);
+  }
+);
+
+fbxLoader.load(
+  "./assets/models/chair.fbx",
+  (object) => {
+    console.log(object);
+    object.traverse((child) => {
+      if (child.isMesh) {
+        // child.material = new THREE.MeshPhongMaterial();
+      }
+    });
+    object.scale.set(0.01, 0.01, 0.01);
+    object.position.set(0.45, -0.1, -1.15);
     object.rotation.y = Math.PI;
-    object.position.set(0.75, 0.08, 2);
     scene.add(object);
   },
   (xhr) => {
@@ -121,7 +165,7 @@ fbxLoader.load(
 
 // lights
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.75);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(2.5, 2.5, 1);
 scene.add(directionalLight);
 
