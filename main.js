@@ -19,6 +19,8 @@ camera.position.z = 2;
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -49,6 +51,7 @@ const floor = new THREE.Mesh(
     map: floorTexture,
   })
 );
+floor.receiveShadow = true;
 floor.rotation.x = -Math.PI / 2;
 scene.add(floor);
 
@@ -87,6 +90,12 @@ walls.add(
     })
   )
 );
+
+walls.children.forEach((wall) => {
+  wall.receiveShadow = true;
+  wall.castShadow = true;
+});
+
 walls.children[0].position.x = -3;
 walls.children[0].position.y = 1.35;
 walls.children[0].rotation.y = Math.PI / 2;
@@ -121,6 +130,7 @@ fbxLoader.load(
     object.traverse((child) => {
       if (child.isMesh) {
         child.material = new THREE.MeshPhongMaterial();
+        child.receiveShadow = true;
       }
     });
     object.scale.set(0.01, 0.01, 0.01);
@@ -140,9 +150,8 @@ fbxLoader.load(
   "./assets/models/bed.fbx",
   (object) => {
     object.traverse((child) => {
-      if (child.isMesh) {
-        // child.material = new THREE.MeshPhongMaterial();
-      }
+      child.receiveShadow = true;
+      child.castShadow = true;
     });
     object.scale.set(0.01, 0.01, 0.01);
     object.rotation.y = Math.PI / 2;
@@ -161,9 +170,8 @@ fbxLoader.load(
   "./assets/models/desk.fbx",
   (object) => {
     object.traverse((child) => {
-      if (child.isMesh) {
-        // child.material = new THREE.MeshPhongMaterial();
-      }
+      child.receiveShadow = true;
+      child.castShadow = true;
     });
     object.scale.set(0.01, 0.01, 0.01);
     object.position.set(0.05, 0.1, -2);
@@ -182,9 +190,8 @@ fbxLoader.load(
   "./assets/models/chair.fbx",
   (object) => {
     object.traverse((child) => {
-      if (child.isMesh) {
-        // child.material = new THREE.MeshPhongMaterial();
-      }
+      child.receiveShadow = true;
+      child.castShadow = true;
     });
     object.scale.set(0.01, 0.01, 0.01);
     object.position.set(-0.25, -0.1, -1.75);
@@ -205,6 +212,8 @@ fbxLoader.load(
     object.traverse((child) => {
       if (child.isMesh) {
         child.material = new THREE.MeshPhongMaterial();
+        child.receiveShadow = true;
+        child.castShadow = true;
       }
     });
     object.scale.set(0.001, 0.001, 0.001);
@@ -221,16 +230,17 @@ fbxLoader.load(
 
 // lights
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight.position.set(3.5, 3.5, 1);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.1);
+directionalLight.castShadow = true;
+directionalLight.position.set(-0.5, 2, -6);
 scene.add(directionalLight);
 
-const directionalLightHelper = new THREE.DirectionalLightHelper(
-  directionalLight
-);
-scene.add(directionalLightHelper);
+// const directionalLightHelper = new THREE.DirectionalLightHelper(
+//   directionalLight
+// );
+// scene.add(directionalLightHelper);
 
-const ambientLight = new THREE.AmbientLight(0x404040, 2);
+const ambientLight = new THREE.AmbientLight(0x404040, 3);
 
 scene.add(ambientLight);
 
