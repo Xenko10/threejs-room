@@ -225,7 +225,6 @@ fbxLoader.load(
   (object) => {
     object.traverse((child) => {
       if (child.isMesh) {
-        console.log("Name: " + child.name + ", material: " + child.material);
         child.receiveShadow = true;
         child.castShadow = true;
       }
@@ -255,9 +254,18 @@ fbxLoader.load(
   (object) => {
     object.traverse((child) => {
       if (child.isMesh) {
-        child.material = new THREE.MeshPhongMaterial();
         child.receiveShadow = true;
         child.castShadow = true;
+      }
+      if (
+        child.name === "Group_002" ||
+        child.name === "Group_003" ||
+        child.name === "Group_004" ||
+        child.name === "Group_005"
+      ) {
+        child.material = new THREE.MeshStandardMaterial({ color: 0xb8b8b8 });
+      } else {
+        child.material = new THREE.MeshStandardMaterial({ color: 0xf3f3f3 });
       }
     });
     object.scale.set(0.001, 0.001, 0.001);
