@@ -22,6 +22,9 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
+controls.maxPolarAngle = Math.PI / 2;
+controls.minDistance = -3;
+controls.maxDistance = 10;
 
 window.addEventListener("resize", onWindowResize, false);
 function onWindowResize() {
@@ -54,7 +57,10 @@ floor.receiveShadow = true;
 floor.rotation.x = -Math.PI / 2;
 scene.add(floor);
 
-const wallWindow = new THREE.Mesh(
+const wallTexture = loader.load("./assets/img/wall.jpg");
+
+const windowWall = new THREE.Group();
+const windowInTheWall = new THREE.Mesh(
   new THREE.BoxGeometry(1.3, 1, 0.01),
   new THREE.MeshPhongMaterial({
     color: 0xacdde7,
@@ -62,20 +68,10 @@ const wallWindow = new THREE.Mesh(
     opacity: 0.25,
   })
 );
-wallWindow.position.x = 0.05;
-wallWindow.position.y = 1.5;
-wallWindow.position.z = -2.5;
-
-const wallTexture = loader.load("./assets/img/wall.jpg");
-
-const walls = new THREE.Group();
-walls.add(
-  new THREE.Mesh(
-    new THREE.BoxGeometry(5.2, 2.5, 0.2),
-    new THREE.MeshPhongMaterial({
-      map: wallTexture,
-    })
-  ),
+windowInTheWall.position.x = 0.05;
+windowInTheWall.position.y = 1.5;
+windowInTheWall.position.z = -2.5;
+windowWall.add(
   new THREE.Mesh(
     new THREE.BoxGeometry(2.4, 2.5, 0.2),
     new THREE.MeshPhongMaterial({
@@ -99,29 +95,69 @@ walls.add(
     new THREE.MeshPhongMaterial({
       map: wallTexture,
     })
+  ),
+  windowInTheWall
+);
+
+const doorWall = new THREE.Group();
+doorWall.add(
+  new THREE.Mesh(
+    new THREE.BoxGeometry(0.68, 2.5, 0.2),
+    new THREE.MeshPhongMaterial({
+      map: wallTexture,
+    })
+  ),
+  new THREE.Mesh(
+    new THREE.BoxGeometry(3.675, 2.5, 0.2),
+    new THREE.MeshPhongMaterial({
+      map: wallTexture,
+    })
+  ),
+  new THREE.Mesh(
+    new THREE.BoxGeometry(0.85, 0.5, 0.2),
+    new THREE.MeshPhongMaterial({
+      map: wallTexture,
+    })
   )
 );
 
-walls.children.forEach((wall) => {
+doorWall.children[0].position.x = -3;
+doorWall.children[0].position.y = 1.35;
+doorWall.children[0].rotation.y = Math.PI / 2;
+doorWall.children[0].position.z = 2.26;
+doorWall.children[1].position.x = -3;
+doorWall.children[1].position.y = 1.35;
+doorWall.children[1].rotation.y = Math.PI / 2;
+doorWall.children[1].position.z = -0.7625;
+doorWall.children[2].position.set(-3, 2.35, 1.5);
+doorWall.children[2].rotation.y = Math.PI / 2;
+
+const walls = new THREE.Group();
+walls.add(doorWall, windowWall);
+
+doorWall.children.forEach((wall) => {
   wall.receiveShadow = true;
   wall.castShadow = true;
 });
 
-walls.add(wallWindow);
+windowWall.children.forEach((wall) => {
+  wall.receiveShadow = true;
+  wall.castShadow = true;
+});
 
-walls.children[0].position.x = -3;
-walls.children[0].position.y = 1.35;
-walls.children[0].rotation.y = Math.PI / 2;
-walls.children[1].position.x = -1.8;
-walls.children[1].position.y = 1.35;
-walls.children[1].position.z = -2.5;
-walls.children[2].position.x = 1.9;
-walls.children[2].position.y = 1.35;
-walls.children[2].position.z = -2.5;
-walls.children[3].position.y = 0.55;
-walls.children[3].position.z = -2.5;
-walls.children[4].position.y = 2.3;
-walls.children[4].position.z = -2.5;
+windowInTheWall.receiveShadow = false;
+windowInTheWall.castShadow = false;
+
+windowWall.children[0].position.x = -1.8;
+windowWall.children[0].position.y = 1.35;
+windowWall.children[0].position.z = -2.5;
+windowWall.children[1].position.x = 1.9;
+windowWall.children[1].position.y = 1.35;
+windowWall.children[1].position.z = -2.5;
+windowWall.children[2].position.y = 0.55;
+windowWall.children[2].position.z = -2.5;
+windowWall.children[3].position.y = 2.3;
+windowWall.children[3].position.z = -2.5;
 scene.add(walls);
 
 const doorWoodTexture = loader.load("./assets/models/txt/wood_door.jpg");
@@ -132,6 +168,7 @@ fbxLoader.load(
     object.traverse((child) => {
       if (child.isMesh) {
         child.receiveShadow = true;
+        child.castShadow = true;
       }
       if (child.name === "Door1" || child.name === "Frame2") {
         child.material = new THREE.MeshStandardMaterial({
@@ -304,18 +341,6 @@ const ambientLight = new THREE.AmbientLight(0x404040, 2);
 scene.add(ambientLight);
 
 //  functions
-
-function lockControlsInCeratinRange() {
-  controls.enablePan = false;
-  controls.maxPolarAngle = Math.PI / 2;
-  controls.minAzimuthAngle = -Math.PI / 4;
-  controls.maxAzimuthAngle = Math.PI / 2;
-  controls.minDistance = -3;
-  controls.maxDistance = 5;
-  scene.rotation.y = -Math.PI / 8;
-}
-
-// lockControlsInCeratinRange();
 
 function animate() {
   requestAnimationFrame(animate);
