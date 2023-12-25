@@ -268,7 +268,7 @@ fbxLoader.load(
         child.material = new THREE.MeshStandardMaterial({ color: 0xf3f3f3 });
       }
     });
-    object.scale.set(0.001, 0.001, 0.001);
+    object.scale.set(0.01, 0.01, 0.01);
     object.position.set(2.2, 0.1, -2);
     scene.add(object);
   },
