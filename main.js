@@ -240,7 +240,7 @@ fbxLoader.load(
 
 // lights
 
-const pointLight = new THREE.PointLight(0xffffff, 1, 50);
+const pointLight = new THREE.PointLight(0xffffff, 0.75, 25);
 pointLight.castShadow = true;
 pointLight.position.set(0, 2, 0);
 scene.add(pointLight);
@@ -258,7 +258,7 @@ scene.add(directionalLight);
 // );
 // scene.add(directionalLightHelper);
 
-const ambientLight = new THREE.AmbientLight(0x404040, 3);
+const ambientLight = new THREE.AmbientLight(0x404040, 2);
 
 scene.add(ambientLight);
 
