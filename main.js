@@ -55,6 +55,18 @@ floor.receiveShadow = true;
 floor.rotation.x = -Math.PI / 2;
 scene.add(floor);
 
+const wallWindow = new THREE.Mesh(
+  new THREE.BoxGeometry(1.3, 1, 0.01),
+  new THREE.MeshPhongMaterial({
+    color: 0xacdde7,
+    transparent: true,
+    opacity: 0.25,
+  })
+);
+wallWindow.position.x = 0.05;
+wallWindow.position.y = 1.5;
+wallWindow.position.z = -2.5;
+
 const wallTexture = loader.load("./assets/img/wall.jpg");
 
 const walls = new THREE.Group();
@@ -96,6 +108,8 @@ walls.children.forEach((wall) => {
   wall.castShadow = true;
 });
 
+walls.add(wallWindow);
+
 walls.children[0].position.x = -3;
 walls.children[0].position.y = 1.35;
 walls.children[0].rotation.y = Math.PI / 2;
@@ -111,19 +125,6 @@ walls.children[4].position.y = 2.3;
 walls.children[4].position.z = -2.5;
 scene.add(walls);
 
-const wallWindow = new THREE.Mesh(
-  new THREE.BoxGeometry(1.3, 1, 0.01),
-  new THREE.MeshPhongMaterial({
-    color: 0xacdde7,
-    transparent: true,
-    opacity: 0.25,
-  })
-);
-wallWindow.position.x = 0.05;
-wallWindow.position.y = 1.5;
-wallWindow.position.z = -2.5;
-scene.add(wallWindow);
-
 const doorWoodTexture = loader.load("./assets/models/txt/wood.jpg");
 
 fbxLoader.load(
@@ -131,7 +132,6 @@ fbxLoader.load(
   (object) => {
     object.traverse((child) => {
       if (child.isMesh) {
-        console.log(child.name);
         child.receiveShadow = true;
       }
       if (child.name === "Door1" || child.name === "Frame2") {
@@ -159,8 +159,19 @@ fbxLoader.load(
   "./assets/models/bed.fbx",
   (object) => {
     object.traverse((child) => {
-      child.receiveShadow = true;
-      child.castShadow = true;
+      if (child.isMesh) {
+        child.receiveShadow = true;
+        child.castShadow = true;
+      }
+      if (child.name === "Plane002" || child.name === "Cube") {
+        child.material = new THREE.MeshStandardMaterial({ color: 0x354963 });
+      } else if (child.name === "Cube002" || child.name === "Cube003") {
+        child.material = new THREE.MeshStandardMaterial({ color: 0x969696 });
+      } else if (child.name === "Cube001") {
+        child.material = new THREE.MeshStandardMaterial({ color: 0xedf6f9 });
+      } else if (child.name === "Cube004") {
+        child.material = new THREE.MeshStandardMaterial({ color: 0xd4d4d4 });
+      }
     });
     object.scale.set(0.01, 0.01, 0.01);
     object.rotation.y = Math.PI / 2;
@@ -179,8 +190,10 @@ fbxLoader.load(
   "./assets/models/desk.fbx",
   (object) => {
     object.traverse((child) => {
-      child.receiveShadow = true;
-      child.castShadow = true;
+      if (child.isMesh) {
+        child.receiveShadow = true;
+        child.castShadow = true;
+      }
     });
     object.scale.set(0.01, 0.01, 0.01);
     object.position.set(0.05, 0.1, -2);
