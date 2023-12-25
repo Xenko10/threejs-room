@@ -13,9 +13,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-camera.position.x = 3;
-camera.position.y = 3;
-camera.position.z = 2;
+camera.position.set(4, 2, 1.5);
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -24,6 +22,7 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
+
 window.addEventListener("resize", onWindowResize, false);
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -305,6 +304,18 @@ const ambientLight = new THREE.AmbientLight(0x404040, 2);
 scene.add(ambientLight);
 
 //  functions
+
+function lockControlsInCeratinRange() {
+  controls.enablePan = false;
+  controls.maxPolarAngle = Math.PI / 2;
+  controls.minAzimuthAngle = -Math.PI / 4;
+  controls.maxAzimuthAngle = Math.PI / 2;
+  controls.minDistance = -3;
+  controls.maxDistance = 5;
+  scene.rotation.y = -Math.PI / 8;
+}
+
+// lockControlsInCeratinRange();
 
 function animate() {
   requestAnimationFrame(animate);

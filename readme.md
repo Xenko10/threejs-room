@@ -11,5 +11,5 @@
 - [ ] mirror
 - [ ] loading screen
 - [ ] laptop / computer setup
-- [ ] make camera look only in certain range
+- [x] make camera look only in certain range
 - [ ] try to write code as clean as possible
