@@ -125,7 +125,7 @@ walls.children[4].position.y = 2.3;
 walls.children[4].position.z = -2.5;
 scene.add(walls);
 
-const doorWoodTexture = loader.load("./assets/models/txt/wood.jpg");
+const doorWoodTexture = loader.load("./assets/models/txt/wood_door.jpg");
 
 fbxLoader.load(
   "./assets/models/door.fbx",
@@ -186,6 +186,11 @@ fbxLoader.load(
   }
 );
 
+const deskWoodTexture = loader.load("./assets/models/txt/wood_desk.jpg");
+deskWoodTexture.wrapS = THREE.RepeatWrapping;
+deskWoodTexture.wrapT = THREE.RepeatWrapping;
+deskWoodTexture.repeat.set(2, 1);
+
 fbxLoader.load(
   "./assets/models/desk.fbx",
   (object) => {
@@ -193,6 +198,13 @@ fbxLoader.load(
       if (child.isMesh) {
         child.receiveShadow = true;
         child.castShadow = true;
+      }
+      if (child.name === "Karlby_Counter_Top") {
+        child.material = new THREE.MeshStandardMaterial({
+          map: deskWoodTexture,
+        });
+      } else if (child.name === "Alex_Unit" || child.name === "Alex_Unit001") {
+        child.material = new THREE.MeshStandardMaterial({ color: 0xebebeb });
       }
     });
     object.scale.set(0.01, 0.01, 0.01);
@@ -212,9 +224,18 @@ fbxLoader.load(
   "./assets/models/chair.fbx",
   (object) => {
     object.traverse((child) => {
-      child.material = new THREE.MeshPhongMaterial();
-      child.receiveShadow = true;
-      child.castShadow = true;
+      if (child.isMesh) {
+        console.log("Name: " + child.name + ", material: " + child.material);
+        child.receiveShadow = true;
+        child.castShadow = true;
+      }
+      if (child.name === "leather") {
+        child.material = new THREE.MeshStandardMaterial({
+          color: 0x616161,
+          metalness: 0.5,
+          roughness: 0.1,
+        });
+      }
     });
     object.scale.set(0.01, 0.01, 0.01);
     object.position.set(-0.25, -0.1, -1.75);
