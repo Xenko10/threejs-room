@@ -74,18 +74,9 @@ floor.rotation.x = -Math.PI / 2;
 scene.add(floor);
 
 const doorWall = createDoorWall();
-
 const windowWall = createWindowWall();
 
-const walls = new THREE.Group();
-walls.add(doorWall, windowWall);
-
-doorWall.children.forEach((wall) => {
-  wall.receiveShadow = true;
-  wall.castShadow = true;
-});
-
-scene.add(walls);
+scene.add(doorWall, windowWall);
 
 fbxLoader.load(
   "./assets/models/bed.fbx",

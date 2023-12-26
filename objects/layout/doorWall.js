@@ -36,6 +36,11 @@ export default function createDoorWall() {
   doorWall.children[2].position.set(-3, 2.4, 1.5);
   doorWall.children[2].rotation.y = Math.PI / 2;
 
+  doorWall.children.forEach((wall) => {
+    wall.receiveShadow = true;
+    wall.castShadow = true;
+  });
+
   async function loadDoor() {
     try {
       const door = await createDoor();
