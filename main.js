@@ -68,9 +68,7 @@ const windowInTheWall = new THREE.Mesh(
     opacity: 0.25,
   })
 );
-windowInTheWall.position.x = 0.05;
-windowInTheWall.position.y = 1.5;
-windowInTheWall.position.z = -2.5;
+windowInTheWall.position.set(0.05, 1.5, -2.5);
 windowWall.add(
   new THREE.Mesh(
     new THREE.BoxGeometry(2.4, 2.5, 0.2),
@@ -121,14 +119,10 @@ doorWall.add(
   )
 );
 
-doorWall.children[0].position.x = -3;
-doorWall.children[0].position.y = 1.35;
+doorWall.children[0].position.set(-3, 1.35, 2.26);
 doorWall.children[0].rotation.y = Math.PI / 2;
-doorWall.children[0].position.z = 2.26;
-doorWall.children[1].position.x = -3;
-doorWall.children[1].position.y = 1.35;
+doorWall.children[1].position.set(-3, 1.35, -0.7625);
 doorWall.children[1].rotation.y = Math.PI / 2;
-doorWall.children[1].position.z = -0.7625;
 doorWall.children[2].position.set(-3, 2.35, 1.5);
 doorWall.children[2].rotation.y = Math.PI / 2;
 
@@ -148,16 +142,10 @@ windowWall.children.forEach((wall) => {
 windowInTheWall.receiveShadow = false;
 windowInTheWall.castShadow = false;
 
-windowWall.children[0].position.x = -1.8;
-windowWall.children[0].position.y = 1.35;
-windowWall.children[0].position.z = -2.5;
-windowWall.children[1].position.x = 1.9;
-windowWall.children[1].position.y = 1.35;
-windowWall.children[1].position.z = -2.5;
-windowWall.children[2].position.y = 0.55;
-windowWall.children[2].position.z = -2.5;
-windowWall.children[3].position.y = 2.3;
-windowWall.children[3].position.z = -2.5;
+windowWall.children[0].position.set(-1.8, 1.35, -2.5);
+windowWall.children[1].position.set(1.9, 1.35, -2.5);
+windowWall.children[2].position.set(0, 0.55, -2.5);
+windowWall.children[3].position.set(0, 2.3, -2.5);
 scene.add(walls);
 
 const doorWoodTexture = loader.load("./assets/models/txt/wood_door.jpg");
