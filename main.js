@@ -266,10 +266,21 @@ fbxLoader.load(
           metalness: 0.5,
           roughness: 0.1,
         });
+      } else if (child.name === "leggy") {
+        child.material[0] = new THREE.MeshStandardMaterial({
+          color: 0x474747,
+        });
+        child.material[1] = new THREE.MeshStandardMaterial({
+          color: 0xcbcfd5,
+        });
+      } else {
+        child.material = new THREE.MeshStandardMaterial({
+          color: 0xcbcfd5,
+        });
       }
     });
     object.scale.set(0.01, 0.01, 0.01);
-    object.position.set(-0.25, -0.1, -1.75);
+    object.position.set(-0.25, -0.075, -1.75);
     object.rotation.y = Math.PI;
     scene.add(object);
   },
