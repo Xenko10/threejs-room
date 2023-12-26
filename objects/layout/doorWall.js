@@ -44,13 +44,9 @@ export default function createDoorWall() {
   });
 
   async function loadDoor() {
-    try {
-      const door = await createDoor();
-      door.position.set(-2.9, 0.1, 1.5);
-      doorWall.add(door);
-    } catch (error) {
-      console.error("Error loading door:", error);
-    }
+    const door = await createDoor();
+    door.position.set(-2.9, 0.1, 1.5);
+    doorWall.add(door);
   }
 
   loadDoor();

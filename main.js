@@ -7,6 +7,7 @@ import createFloor from "./objects/layout/floor.js";
 import createWindowWall from "./objects/layout/windowWall.js";
 import createDoorWall from "./objects/layout/doorWall.js";
 import createBed from "./objects/interior/bed.js";
+import createDesk from "./objects/interior/desk.js";
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x7da1df);
@@ -42,17 +43,13 @@ function onWindowResize() {
 const stats = new Stats();
 document.body.appendChild(stats.dom);
 
-const loader = new THREE.TextureLoader();
 const fbxLoader = new FBXLoader();
 
 // textures
 
-const deskWoodTexture = loader.load("./assets/models/txt/wood_desk.jpg");
-deskWoodTexture.wrapS = THREE.RepeatWrapping;
-deskWoodTexture.wrapT = THREE.RepeatWrapping;
-deskWoodTexture.repeat.set(2, 1);
-
-const woodTexture = loader.load("./assets/models/txt/wood.jpg");
+const woodTexture = new THREE.TextureLoader().load(
+  "./assets/models/txt/wood.jpg"
+);
 woodTexture.wrapS = THREE.RepeatWrapping;
 woodTexture.wrapT = THREE.RepeatWrapping;
 woodTexture.repeat.set(3, 3);
@@ -68,47 +65,22 @@ const windowWall = createWindowWall();
 scene.add(doorWall, windowWall);
 
 async function loadBed() {
-  try {
-    const bed = await createBed();
-    bed.position.set(-4.75, 0.08, 0.8);
-    bed.rotation.y = Math.PI / 2;
-    scene.add(bed);
-  } catch (error) {
-    console.error("Error loading door:", error);
-  }
+  const bed = await createBed();
+  bed.position.set(-4.75, 0.08, 0.8);
+  bed.rotation.y = Math.PI / 2;
+  scene.add(bed);
 }
 
 loadBed();
 
-fbxLoader.load(
-  "./assets/models/desk.fbx",
-  (object) => {
-    object.traverse((child) => {
-      if (child.isMesh) {
-        child.receiveShadow = true;
-        child.castShadow = true;
-      }
-      if (child.name === "Karlby_Counter_Top") {
-        child.material = new THREE.MeshStandardMaterial({
-          color: 0xd2bdb7,
-          map: deskWoodTexture,
-        });
-      } else if (child.name === "Alex_Unit" || child.name === "Alex_Unit001") {
-        child.material = new THREE.MeshStandardMaterial({ color: 0xe0e0e0 });
-      }
-    });
-    object.scale.set(0.01, 0.01, 0.01);
-    object.position.set(0.05, 0.1, -2);
-    object.rotation.y = Math.PI / 2;
-    scene.add(object);
-  },
-  (xhr) => {
-    console.log("Desk: " + (xhr.loaded / xhr.total) * 100 + "% loaded");
-  },
-  (error) => {
-    console.log(error);
-  }
-);
+async function loadDesk() {
+  const desk = await createDesk();
+  desk.position.set(0.05, 0.1, -2);
+  desk.rotation.y = Math.PI / 2;
+  scene.add(desk);
+}
+
+loadDesk();
 
 fbxLoader.load(
   "./assets/models/chair.fbx",
