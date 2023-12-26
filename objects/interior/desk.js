@@ -8,39 +8,29 @@ export default function createDesk() {
   deskWoodTexture.wrapS = THREE.RepeatWrapping;
   deskWoodTexture.wrapT = THREE.RepeatWrapping;
   deskWoodTexture.repeat.set(2, 1);
-  return new Promise((resolve, reject) => {
-    new FBXLoader().load(
-      "../../assets/models/desk.fbx",
-      (object) => {
-        object.traverse((child) => {
-          if (child.isMesh) {
-            child.receiveShadow = true;
-            child.castShadow = true;
-          }
-          if (child.name === "Karlby_Counter_Top") {
-            child.material = new THREE.MeshStandardMaterial({
-              color: 0xd2bdb7,
-              map: deskWoodTexture,
-            });
-          } else if (
-            child.name === "Alex_Unit" ||
-            child.name === "Alex_Unit001"
-          ) {
-            child.material = new THREE.MeshStandardMaterial({
-              color: 0xe0e0e0,
-            });
-          }
-        });
-        object.scale.set(0.01, 0.01, 0.01);
-        resolve(object);
-      },
-      (xhr) => {
-        console.log("Desk: " + (xhr.loaded / xhr.total) * 100 + "% loaded");
-      },
-      (error) => {
-        console.log(error);
-        reject(error);
-      }
-    );
+  return new Promise((resolve) => {
+    new FBXLoader().load("../../assets/models/desk.fbx", (object) => {
+      object.traverse((child) => {
+        if (child.isMesh) {
+          child.receiveShadow = true;
+          child.castShadow = true;
+        }
+        if (child.name === "Karlby_Counter_Top") {
+          child.material = new THREE.MeshStandardMaterial({
+            color: 0xd2bdb7,
+            map: deskWoodTexture,
+          });
+        } else if (
+          child.name === "Alex_Unit" ||
+          child.name === "Alex_Unit001"
+        ) {
+          child.material = new THREE.MeshStandardMaterial({
+            color: 0xe0e0e0,
+          });
+        }
+      });
+      object.scale.set(0.01, 0.01, 0.01);
+      resolve(object);
+    });
   });
 }

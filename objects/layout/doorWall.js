@@ -46,6 +46,7 @@ export default function createDoorWall() {
   async function loadDoor() {
     const door = await createDoor();
     door.position.set(-2.9, 0.1, 1.5);
+    door.rotation.y = Math.PI;
     doorWall.add(door);
   }
 
