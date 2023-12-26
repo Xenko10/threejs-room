@@ -169,7 +169,7 @@ fbxLoader.load(
           color: 0xa56f4d,
         });
       } else {
-        child.material = new THREE.MeshStandardMaterial();
+        child.material = new THREE.MeshStandardMaterial({ color: 0xdfe0e3 });
       }
     });
     object.scale.set(0.01, 0.01, 0.01);
@@ -193,10 +193,12 @@ fbxLoader.load(
         child.receiveShadow = true;
         child.castShadow = true;
       }
-      if (child.name === "Plane002" || child.name === "Cube") {
-        child.material = new THREE.MeshStandardMaterial({ color: 0x354963 });
-      } else if (child.name === "Cube002" || child.name === "Cube003") {
+      if (child.name === "Plane002") {
+        child.material = new THREE.MeshStandardMaterial({ color: 0xcbcfd5 });
+      } else if (child.name === "Cube") {
         child.material = new THREE.MeshStandardMaterial({ color: 0x969696 });
+      } else if (child.name === "Cube002" || child.name === "Cube003") {
+        child.material = new THREE.MeshStandardMaterial({ color: 0xbbbbbb });
       } else if (child.name === "Cube001") {
         child.material = new THREE.MeshStandardMaterial({ color: 0xedf6f9 });
       } else if (child.name === "Cube004") {
