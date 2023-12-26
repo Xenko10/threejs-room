@@ -5,6 +5,7 @@ import Stats from "three/examples/jsm/libs/stats.module";
 
 import createWindowWall from "./objects/layout/windowWall.js";
 import createDoorWall from "./objects/layout/doorWall.js";
+import createBed from "./objects/interior/bed.js";
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x7da1df);
@@ -78,38 +79,18 @@ const windowWall = createWindowWall();
 
 scene.add(doorWall, windowWall);
 
-fbxLoader.load(
-  "./assets/models/bed.fbx",
-  (object) => {
-    object.traverse((child) => {
-      if (child.isMesh) {
-        child.receiveShadow = true;
-        child.castShadow = true;
-      }
-      if (child.name === "Plane002") {
-        child.material = new THREE.MeshStandardMaterial({ color: 0xcbcfd5 });
-      } else if (child.name === "Cube") {
-        child.material = new THREE.MeshStandardMaterial({ color: 0x969696 });
-      } else if (child.name === "Cube002" || child.name === "Cube003") {
-        child.material = new THREE.MeshStandardMaterial({ color: 0xbbbbbb });
-      } else if (child.name === "Cube001") {
-        child.material = new THREE.MeshStandardMaterial({ color: 0xedf6f9 });
-      } else if (child.name === "Cube004") {
-        child.material = new THREE.MeshStandardMaterial({ color: 0xd4d4d4 });
-      }
-    });
-    object.scale.set(0.01, 0.01, 0.01);
-    object.rotation.y = Math.PI / 2;
-    object.position.set(-4.75, 0.08, 0.8);
-    scene.add(object);
-  },
-  (xhr) => {
-    console.log("Bed: " + (xhr.loaded / xhr.total) * 100 + "% loaded");
-  },
-  (error) => {
-    console.log(error);
+async function loadBed() {
+  try {
+    const bed = await createBed();
+    bed.position.set(-4.75, 0.08, 0.8);
+    bed.rotation.y = Math.PI / 2;
+    scene.add(bed);
+  } catch (error) {
+    console.error("Error loading door:", error);
   }
-);
+}
+
+loadBed();
 
 fbxLoader.load(
   "./assets/models/desk.fbx",
