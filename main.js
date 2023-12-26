@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
+import createWindow from "./objects/interiorElements/window.js";
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x7da1df);
@@ -73,15 +74,8 @@ floor.rotation.x = -Math.PI / 2;
 scene.add(floor);
 
 const windowWall = new THREE.Group();
-const windowInTheWall = new THREE.Mesh(
-  new THREE.BoxGeometry(1.4, 1, 0.01),
-  new THREE.MeshPhongMaterial({
-    color: 0xacdde7,
-    transparent: true,
-    opacity: 0.25,
-  })
-);
-windowInTheWall.position.set(0, 1.5, -2.5);
+const windowInTheWall = createWindow();
+
 windowWall.add(
   new THREE.Mesh(
     new THREE.BoxGeometry(2.2, 2.5, 0.2),
@@ -158,9 +152,6 @@ windowWall.children.forEach((wall) => {
   wall.receiveShadow = true;
   wall.castShadow = true;
 });
-
-windowInTheWall.receiveShadow = false;
-windowInTheWall.castShadow = false;
 
 windowWall.children[0].position.set(-1.8, 1.35, -2.5);
 windowWall.children[1].position.set(1.9, 1.35, -2.5);
