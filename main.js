@@ -40,12 +40,26 @@ document.body.appendChild(stats.dom);
 const loader = new THREE.TextureLoader();
 const fbxLoader = new FBXLoader();
 
-// meshes
+// textures
+
+const wallTexture = loader.load("./assets/img/wall.jpg");
+
+const deskWoodTexture = loader.load("./assets/models/txt/wood_desk.jpg");
+deskWoodTexture.wrapS = THREE.RepeatWrapping;
+deskWoodTexture.wrapT = THREE.RepeatWrapping;
+deskWoodTexture.repeat.set(2, 1);
 
 const floorTexture = loader.load("./assets/img/floor.jpg");
 floorTexture.wrapS = THREE.RepeatWrapping;
 floorTexture.wrapT = THREE.RepeatWrapping;
 floorTexture.repeat.set(5, 3);
+
+const woodTexture = loader.load("./assets/models/txt/wood.jpg");
+woodTexture.wrapS = THREE.RepeatWrapping;
+woodTexture.wrapT = THREE.RepeatWrapping;
+woodTexture.repeat.set(3, 3);
+
+// meshes
 
 const floor = new THREE.Mesh(
   new THREE.BoxGeometry(6.2, 5.2, 0.2),
@@ -57,8 +71,6 @@ const floor = new THREE.Mesh(
 floor.receiveShadow = true;
 floor.rotation.x = -Math.PI / 2;
 scene.add(floor);
-
-const wallTexture = loader.load("./assets/img/wall.jpg");
 
 const windowWall = new THREE.Group();
 const windowInTheWall = new THREE.Mesh(
@@ -166,7 +178,7 @@ fbxLoader.load(
       }
       if (child.name === "Door1" || child.name === "Frame2") {
         child.material = new THREE.MeshStandardMaterial({
-          color: 0xa56f4d,
+          color: 0x8f6147,
         });
       } else {
         child.material = new THREE.MeshStandardMaterial({ color: 0xdfe0e3 });
@@ -218,11 +230,6 @@ fbxLoader.load(
   }
 );
 
-const deskWoodTexture = loader.load("./assets/models/txt/wood_desk.jpg");
-deskWoodTexture.wrapS = THREE.RepeatWrapping;
-deskWoodTexture.wrapT = THREE.RepeatWrapping;
-deskWoodTexture.repeat.set(2, 1);
-
 fbxLoader.load(
   "./assets/models/desk.fbx",
   (object) => {
@@ -233,7 +240,7 @@ fbxLoader.load(
       }
       if (child.name === "Karlby_Counter_Top") {
         child.material = new THREE.MeshStandardMaterial({
-          color: 0xc99583,
+          color: 0xd2bdb7,
           map: deskWoodTexture,
         });
       } else if (child.name === "Alex_Unit" || child.name === "Alex_Unit001") {
@@ -309,7 +316,10 @@ fbxLoader.load(
       ) {
         child.material = new THREE.MeshStandardMaterial({ color: 0xb8b8b8 });
       } else {
-        child.material = new THREE.MeshStandardMaterial({ color: 0xf3f3f3 });
+        child.material = new THREE.MeshStandardMaterial({
+          color: 0xa5908a,
+          map: woodTexture,
+        });
       }
     });
     object.scale.set(0.01, 0.01, 0.01);
