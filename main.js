@@ -3,6 +3,7 @@ import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
 
+import createFloor from "./objects/layout/floor.js";
 import createWindowWall from "./objects/layout/windowWall.js";
 import createDoorWall from "./objects/layout/doorWall.js";
 import createBed from "./objects/interior/bed.js";
@@ -51,11 +52,6 @@ deskWoodTexture.wrapS = THREE.RepeatWrapping;
 deskWoodTexture.wrapT = THREE.RepeatWrapping;
 deskWoodTexture.repeat.set(2, 1);
 
-const floorTexture = loader.load("./assets/img/floor.jpg");
-floorTexture.wrapS = THREE.RepeatWrapping;
-floorTexture.wrapT = THREE.RepeatWrapping;
-floorTexture.repeat.set(5, 3);
-
 const woodTexture = loader.load("./assets/models/txt/wood.jpg");
 woodTexture.wrapS = THREE.RepeatWrapping;
 woodTexture.wrapT = THREE.RepeatWrapping;
@@ -63,15 +59,7 @@ woodTexture.repeat.set(3, 3);
 
 // meshes
 
-const floor = new THREE.Mesh(
-  new THREE.BoxGeometry(6.2, 5.2, 0.2),
-  new THREE.MeshStandardMaterial({
-    color: 0x807169,
-    map: floorTexture,
-  })
-);
-floor.receiveShadow = true;
-floor.rotation.x = -Math.PI / 2;
+const floor = createFloor();
 scene.add(floor);
 
 const doorWall = createDoorWall();

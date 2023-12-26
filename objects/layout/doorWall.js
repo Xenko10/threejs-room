@@ -2,7 +2,9 @@ import * as THREE from "three";
 import createDoor from "../interior/door.js";
 
 export default function createDoorWall() {
-  const wallTexture = new THREE.TextureLoader().load("./assets/img/wall.jpg");
+  const wallTexture = new THREE.TextureLoader().load(
+    "../../assets/img/wall.jpg"
+  );
   const doorWall = new THREE.Group();
 
   doorWall.add(
