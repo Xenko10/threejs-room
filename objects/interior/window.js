@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-export default function createWindowObj() {
+export default function createWindow() {
   const windowObj = new THREE.Group();
 
   windowObj.add(
