@@ -72,7 +72,7 @@ const windowInTheWall = new THREE.Mesh(
 windowInTheWall.position.set(0.05, 1.5, -2.5);
 windowWall.add(
   new THREE.Mesh(
-    new THREE.BoxGeometry(2.4, 2.5, 0.2),
+    new THREE.BoxGeometry(2.2, 2.5, 0.2),
     new THREE.MeshPhongMaterial({
       color: 0xd4d2d5,
       map: wallTexture,
