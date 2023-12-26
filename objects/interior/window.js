@@ -1,9 +1,9 @@
 import * as THREE from "three";
 
-export default function createWindow() {
-  const window = new THREE.Group();
+export default function createWindowObj() {
+  const windowObj = new THREE.Group();
 
-  window.add(
+  windowObj.add(
     new THREE.Mesh(
       new THREE.BoxGeometry(1.4, 1, 0.01),
       new THREE.MeshPhongMaterial({
@@ -44,20 +44,20 @@ export default function createWindow() {
     )
   );
 
-  window.children[0].position.set(0, 1.5, -2.5);
-  window.children[1].position.set(0, 1, -2.5);
-  window.children[2].position.set(0, 1.475, -2.5);
-  window.children[3].position.set(0, 1.975, -2.5);
-  window.children[4].position.set(-0.675, 1.475, -2.5);
-  window.children[5].position.set(0.675, 1.475, -2.5);
+  windowObj.children[0].position.set(0, 1.5, -2.5);
+  windowObj.children[1].position.set(0, 1, -2.5);
+  windowObj.children[2].position.set(0, 1.475, -2.5);
+  windowObj.children[3].position.set(0, 1.975, -2.5);
+  windowObj.children[4].position.set(-0.675, 1.475, -2.5);
+  windowObj.children[5].position.set(0.675, 1.475, -2.5);
 
-  window.children.forEach((wall) => {
+  windowObj.children.forEach((wall) => {
     wall.receiveShadow = true;
     wall.castShadow = true;
   });
 
-  window.children[0].castShadow = false;
-  window.children[0].receiveShadow = false;
+  windowObj.children[0].castShadow = false;
+  windowObj.children[0].receiveShadow = false;
 
-  return window;
+  return windowObj;
 }

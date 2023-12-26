@@ -2,7 +2,8 @@ import * as THREE from "three";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
-import createWindow from "./objects/interiorElements/window.js";
+
+import createWindowWall from "./objects/layout/windowWall.js";
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x7da1df);
@@ -43,8 +44,6 @@ const fbxLoader = new FBXLoader();
 
 // textures
 
-const wallTexture = loader.load("./assets/img/wall.jpg");
-
 const deskWoodTexture = loader.load("./assets/models/txt/wood_desk.jpg");
 deskWoodTexture.wrapS = THREE.RepeatWrapping;
 deskWoodTexture.wrapT = THREE.RepeatWrapping;
@@ -60,6 +59,8 @@ woodTexture.wrapS = THREE.RepeatWrapping;
 woodTexture.wrapT = THREE.RepeatWrapping;
 woodTexture.repeat.set(3, 3);
 
+const wallTexture = loader.load("./assets/img/wall.jpg");
+
 // meshes
 
 const floor = new THREE.Mesh(
@@ -72,41 +73,6 @@ const floor = new THREE.Mesh(
 floor.receiveShadow = true;
 floor.rotation.x = -Math.PI / 2;
 scene.add(floor);
-
-const windowWall = new THREE.Group();
-const windowInTheWall = createWindow();
-
-windowWall.add(
-  new THREE.Mesh(
-    new THREE.BoxGeometry(2.2, 2.5, 0.2),
-    new THREE.MeshPhongMaterial({
-      color: 0xd4d2d5,
-      map: wallTexture,
-    })
-  ),
-  new THREE.Mesh(
-    new THREE.BoxGeometry(2.4, 2.5, 0.2),
-    new THREE.MeshPhongMaterial({
-      color: 0xd4d2d5,
-      map: wallTexture,
-    })
-  ),
-  new THREE.Mesh(
-    new THREE.BoxGeometry(1.4, 0.9, 0.2),
-    new THREE.MeshPhongMaterial({
-      color: 0xd4d2d5,
-      map: wallTexture,
-    })
-  ),
-  new THREE.Mesh(
-    new THREE.BoxGeometry(1.4, 0.6, 0.2),
-    new THREE.MeshPhongMaterial({
-      color: 0xd4d2d5,
-      map: wallTexture,
-    })
-  ),
-  windowInTheWall
-);
 
 const doorWall = new THREE.Group();
 doorWall.add(
@@ -140,6 +106,8 @@ doorWall.children[1].rotation.y = Math.PI / 2;
 doorWall.children[2].position.set(-3, 2.4, 1.5);
 doorWall.children[2].rotation.y = Math.PI / 2;
 
+const windowWall = createWindowWall();
+
 const walls = new THREE.Group();
 walls.add(doorWall, windowWall);
 
@@ -148,15 +116,6 @@ doorWall.children.forEach((wall) => {
   wall.castShadow = true;
 });
 
-windowWall.children.forEach((wall) => {
-  wall.receiveShadow = true;
-  wall.castShadow = true;
-});
-
-windowWall.children[0].position.set(-1.8, 1.35, -2.5);
-windowWall.children[1].position.set(1.9, 1.35, -2.5);
-windowWall.children[2].position.set(0, 0.55, -2.5);
-windowWall.children[3].position.set(0, 2.3, -2.5);
 scene.add(walls);
 
 fbxLoader.load(
