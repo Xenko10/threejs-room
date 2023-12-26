@@ -73,24 +73,28 @@ windowWall.add(
   new THREE.Mesh(
     new THREE.BoxGeometry(2.4, 2.5, 0.2),
     new THREE.MeshPhongMaterial({
+      color: 0xd4d2d5,
       map: wallTexture,
     })
   ),
   new THREE.Mesh(
     new THREE.BoxGeometry(2.4, 2.5, 0.2),
     new THREE.MeshPhongMaterial({
+      color: 0xd4d2d5,
       map: wallTexture,
     })
   ),
   new THREE.Mesh(
     new THREE.BoxGeometry(1.4, 0.9, 0.2),
     new THREE.MeshPhongMaterial({
+      color: 0xd4d2d5,
       map: wallTexture,
     })
   ),
   new THREE.Mesh(
     new THREE.BoxGeometry(1.4, 0.6, 0.2),
     new THREE.MeshPhongMaterial({
+      color: 0xd4d2d5,
       map: wallTexture,
     })
   ),
@@ -102,18 +106,21 @@ doorWall.add(
   new THREE.Mesh(
     new THREE.BoxGeometry(0.68, 2.5, 0.2),
     new THREE.MeshPhongMaterial({
+      color: 0xd4d2d5,
       map: wallTexture,
     })
   ),
   new THREE.Mesh(
     new THREE.BoxGeometry(3.675, 2.5, 0.2),
     new THREE.MeshPhongMaterial({
+      color: 0xd4d2d5,
       map: wallTexture,
     })
   ),
   new THREE.Mesh(
-    new THREE.BoxGeometry(0.85, 0.5, 0.2),
+    new THREE.BoxGeometry(0.85, 0.4, 0.2),
     new THREE.MeshPhongMaterial({
+      color: 0xd4d2d5,
       map: wallTexture,
     })
   )
@@ -123,7 +130,7 @@ doorWall.children[0].position.set(-3, 1.35, 2.26);
 doorWall.children[0].rotation.y = Math.PI / 2;
 doorWall.children[1].position.set(-3, 1.35, -0.7625);
 doorWall.children[1].rotation.y = Math.PI / 2;
-doorWall.children[2].position.set(-3, 2.35, 1.5);
+doorWall.children[2].position.set(-3, 2.4, 1.5);
 doorWall.children[2].rotation.y = Math.PI / 2;
 
 const walls = new THREE.Group();
@@ -148,8 +155,6 @@ windowWall.children[2].position.set(0, 0.55, -2.5);
 windowWall.children[3].position.set(0, 2.3, -2.5);
 scene.add(walls);
 
-const doorWoodTexture = loader.load("./assets/models/txt/wood_door.jpg");
-
 fbxLoader.load(
   "./assets/models/door.fbx",
   (object) => {
@@ -160,7 +165,7 @@ fbxLoader.load(
       }
       if (child.name === "Door1" || child.name === "Frame2") {
         child.material = new THREE.MeshStandardMaterial({
-          map: doorWoodTexture,
+          color: 0xa56f4d,
         });
       } else {
         child.material = new THREE.MeshStandardMaterial();
