@@ -10,6 +10,10 @@ import createDesk from "./objects/interior/desk.js";
 import createChair from "./objects/interior/chair.js";
 import createWardrobe from "./objects/interior/wardrobe.js";
 import createLights from "./objects/lights.js";
+import createBookOpen from "./objects/interior/book_open.js";
+import createBookClosed from "./objects/interior/book_closed.js";
+
+let bookOpen, bookClosed;
 
 const elementsToLoad = [
   { createFunction: createFloor },
@@ -34,6 +38,21 @@ const elementsToLoad = [
   {
     createFunction: createWardrobe,
     position: new THREE.Vector3(2.2, 0.1, -2),
+  },
+  {
+    createFunction: async () => {
+      bookOpen = await createBookOpen();
+      bookOpen.visible = false;
+      return bookOpen;
+    },
+    position: new THREE.Vector3(0, 0.84, -1.9),
+  },
+  {
+    createFunction: async () => {
+      bookClosed = await createBookClosed();
+      return bookClosed;
+    },
+    position: new THREE.Vector3(0, 0.845, -1.9),
   },
 ];
 
@@ -93,6 +112,34 @@ function loadInterior() {
     scene.add(loadedItem);
     itemLoaded();
   });
+
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+
+  window.addEventListener(
+    "click",
+    (event) => {
+      event.preventDefault();
+
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+
+      const intersects = raycaster.intersectObjects([bookOpen, bookClosed]);
+
+      if (intersects.length > 0) {
+        if (bookOpen.visible) {
+          bookOpen.visible = false;
+          bookClosed.visible = true;
+        } else {
+          bookOpen.visible = true;
+          bookClosed.visible = false;
+        }
+      }
+    },
+    false
+  );
 
   document.body.appendChild(stats.dom);
   animate();
