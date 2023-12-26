@@ -74,14 +74,14 @@ scene.add(floor);
 
 const windowWall = new THREE.Group();
 const windowInTheWall = new THREE.Mesh(
-  new THREE.BoxGeometry(1.3, 1, 0.01),
+  new THREE.BoxGeometry(1.4, 1, 0.01),
   new THREE.MeshPhongMaterial({
     color: 0xacdde7,
     transparent: true,
     opacity: 0.25,
   })
 );
-windowInTheWall.position.set(0.05, 1.5, -2.5);
+windowInTheWall.position.set(0, 1.5, -2.5);
 windowWall.add(
   new THREE.Mesh(
     new THREE.BoxGeometry(2.2, 2.5, 0.2),
