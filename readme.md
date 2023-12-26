@@ -9,7 +9,7 @@
 - [x] wardrobe
 - [ ] music instrument (you can click it for sound effects)
 - [ ] mirror
-- [ ] loading screen
+- [x] loading screen
 - [ ] laptop / computer setup
 - [x] make camera look only in certain range
 - [ ] try to write code as clean as possible
