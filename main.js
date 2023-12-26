@@ -49,7 +49,8 @@ floorTexture.repeat.set(5, 3);
 
 const floor = new THREE.Mesh(
   new THREE.BoxGeometry(6.2, 5.2, 0.2),
-  new THREE.MeshPhongMaterial({
+  new THREE.MeshStandardMaterial({
+    color: 0x807169,
     map: floorTexture,
   })
 );
