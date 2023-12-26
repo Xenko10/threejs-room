@@ -233,10 +233,11 @@ fbxLoader.load(
       }
       if (child.name === "Karlby_Counter_Top") {
         child.material = new THREE.MeshStandardMaterial({
+          color: 0xc99583,
           map: deskWoodTexture,
         });
       } else if (child.name === "Alex_Unit" || child.name === "Alex_Unit001") {
-        child.material = new THREE.MeshStandardMaterial({ color: 0xebebeb });
+        child.material = new THREE.MeshStandardMaterial({ color: 0xe0e0e0 });
       }
     });
     object.scale.set(0.01, 0.01, 0.01);
