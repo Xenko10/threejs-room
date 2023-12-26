@@ -55,40 +55,22 @@ const windowWall = createWindowWall();
 
 scene.add(doorWall, windowWall);
 
-async function loadBed() {
+async function loadInterior() {
   const bed = await createBed();
   bed.position.set(-4.75, 0.08, 0.8);
   bed.rotation.y = Math.PI / 2;
-  scene.add(bed);
-}
-
-loadBed();
-
-async function loadDesk() {
   const desk = await createDesk();
   desk.position.set(0.05, 0.1, -2);
   desk.rotation.y = Math.PI / 2;
-  scene.add(desk);
-}
-
-loadDesk();
-
-async function loadChair() {
   const chair = await createChair();
   chair.position.set(-0.25, -0.075, -1.75);
   chair.rotation.y = Math.PI;
-  scene.add(chair);
-}
-
-loadChair();
-
-async function loadWardrobe() {
   const wardrobe = await createWardrobe();
   wardrobe.position.set(2.2, 0.1, -2);
-  scene.add(wardrobe);
+  scene.add(bed, desk, chair, wardrobe);
 }
 
-loadWardrobe();
+loadInterior();
 
 // lights
 
