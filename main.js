@@ -43,8 +43,6 @@ function onWindowResize() {
 const stats = new Stats();
 document.body.appendChild(stats.dom);
 
-const fbxLoader = new FBXLoader();
-
 // textures
 
 const woodTexture = new THREE.TextureLoader().load(
@@ -82,7 +80,7 @@ async function loadDesk() {
 
 loadDesk();
 
-fbxLoader.load(
+new FBXLoader().load(
   "./assets/models/chair.fbx",
   (object) => {
     object.traverse((child) => {
@@ -122,7 +120,7 @@ fbxLoader.load(
   }
 );
 
-fbxLoader.load(
+new FBXLoader().load(
   "./assets/models/wardrobe.fbx",
   (object) => {
     object.traverse((child) => {

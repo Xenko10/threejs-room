@@ -1,11 +1,9 @@
 import * as THREE from "three";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
-const fbxLoader = new FBXLoader();
-
 export default function createDoor() {
   return new Promise((resolve, reject) => {
-    fbxLoader.load(
+    new FBXLoader().load(
       "../../assets/models/door.fbx",
       (object) => {
         object.traverse((child) => {

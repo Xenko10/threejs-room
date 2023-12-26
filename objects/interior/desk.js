@@ -1,8 +1,6 @@
 import * as THREE from "three";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
-const fbxLoader = new FBXLoader();
-
 export default function createDesk() {
   const deskWoodTexture = new THREE.TextureLoader().load(
     "./assets/models/txt/wood_desk.jpg"
@@ -11,7 +9,7 @@ export default function createDesk() {
   deskWoodTexture.wrapT = THREE.RepeatWrapping;
   deskWoodTexture.repeat.set(2, 1);
   return new Promise((resolve, reject) => {
-    fbxLoader.load(
+    new FBXLoader().load(
       "../../assets/models/desk.fbx",
       (object) => {
         object.traverse((child) => {
