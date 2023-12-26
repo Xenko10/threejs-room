@@ -4,6 +4,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
 
 import createWindowWall from "./objects/layout/windowWall.js";
+import createDoorWall from "./objects/layout/doorWall.js";
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x7da1df);
@@ -59,8 +60,6 @@ woodTexture.wrapS = THREE.RepeatWrapping;
 woodTexture.wrapT = THREE.RepeatWrapping;
 woodTexture.repeat.set(3, 3);
 
-const wallTexture = loader.load("./assets/img/wall.jpg");
-
 // meshes
 
 const floor = new THREE.Mesh(
@@ -74,37 +73,7 @@ floor.receiveShadow = true;
 floor.rotation.x = -Math.PI / 2;
 scene.add(floor);
 
-const doorWall = new THREE.Group();
-doorWall.add(
-  new THREE.Mesh(
-    new THREE.BoxGeometry(0.68, 2.5, 0.2),
-    new THREE.MeshPhongMaterial({
-      color: 0xd4d2d5,
-      map: wallTexture,
-    })
-  ),
-  new THREE.Mesh(
-    new THREE.BoxGeometry(3.675, 2.5, 0.2),
-    new THREE.MeshPhongMaterial({
-      color: 0xd4d2d5,
-      map: wallTexture,
-    })
-  ),
-  new THREE.Mesh(
-    new THREE.BoxGeometry(0.85, 0.4, 0.2),
-    new THREE.MeshPhongMaterial({
-      color: 0xd4d2d5,
-      map: wallTexture,
-    })
-  )
-);
-
-doorWall.children[0].position.set(-3, 1.35, 2.26);
-doorWall.children[0].rotation.y = Math.PI / 2;
-doorWall.children[1].position.set(-3, 1.35, -0.7625);
-doorWall.children[1].rotation.y = Math.PI / 2;
-doorWall.children[2].position.set(-3, 2.4, 1.5);
-doorWall.children[2].rotation.y = Math.PI / 2;
+const doorWall = createDoorWall();
 
 const windowWall = createWindowWall();
 
@@ -117,35 +86,6 @@ doorWall.children.forEach((wall) => {
 });
 
 scene.add(walls);
-
-fbxLoader.load(
-  "./assets/models/door.fbx",
-  (object) => {
-    object.traverse((child) => {
-      if (child.isMesh) {
-        child.receiveShadow = true;
-        child.castShadow = true;
-      }
-      if (child.name === "Door1" || child.name === "Frame2") {
-        child.material = new THREE.MeshStandardMaterial({
-          color: 0x8f6147,
-        });
-      } else {
-        child.material = new THREE.MeshStandardMaterial({ color: 0xdfe0e3 });
-      }
-    });
-    object.scale.set(0.01, 0.01, 0.01);
-    object.position.set(-2.9, 0.1, 1.5);
-    object.rotation.y = Math.PI;
-    scene.add(object);
-  },
-  (xhr) => {
-    console.log("Door: " + (xhr.loaded / xhr.total) * 100 + "% loaded");
-  },
-  (error) => {
-    console.log(error);
-  }
-);
 
 fbxLoader.load(
   "./assets/models/bed.fbx",
