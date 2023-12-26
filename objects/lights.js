@@ -8,7 +8,7 @@ export default function createLights() {
   pointLight.position.set(0, 2, 0);
 
   // const pointLightHelper = new THREE.PointLightHelper(pointLight);
-  // scene.add(pointLightHelper);
+  // lights.add(pointLightHelper);
 
   const directionalLight = new THREE.DirectionalLight(0xffffff, 0.1);
   directionalLight.castShadow = true;
@@ -17,7 +17,7 @@ export default function createLights() {
   // const directionalLightHelper = new THREE.DirectionalLightHelper(
   //   directionalLight
   // );
-  // scene.add(directionalLightHelper);
+  // lights.add(directionalLightHelper);
 
   const ambientLight = new THREE.AmbientLight(0x404040, 2);
 
