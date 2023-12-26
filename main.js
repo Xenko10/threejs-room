@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
 
@@ -10,6 +9,8 @@ import createBed from "./objects/interior/bed.js";
 import createDesk from "./objects/interior/desk.js";
 import createChair from "./objects/interior/chair.js";
 import createWardrobe from "./objects/interior/wardrobe.js";
+
+import setupLights from "./objects/lights.js";
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x7da1df);
@@ -43,19 +44,16 @@ function onWindowResize() {
 }
 
 const stats = new Stats();
-document.body.appendChild(stats.dom);
-
-// meshes
-
-const floor = createFloor();
-scene.add(floor);
-
-const doorWall = createDoorWall();
-const windowWall = createWindowWall();
-
-scene.add(doorWall, windowWall);
 
 async function loadInterior() {
+  const floor = createFloor();
+  scene.add(floor);
+  const doorWall = createDoorWall();
+  scene.add(doorWall);
+  const windowWall = createWindowWall();
+  scene.add(windowWall);
+  const lights = setupLights();
+  scene.add(lights);
   const bed = await createBed();
   bed.position.set(-4.75, 0.08, 0.8);
   bed.rotation.y = Math.PI / 2;
@@ -75,32 +73,6 @@ async function loadInterior() {
 
 loadInterior();
 
-// lights
-
-const pointLight = new THREE.PointLight(0xffffff, 0.75, 25);
-pointLight.castShadow = true;
-pointLight.position.set(0, 2, 0);
-scene.add(pointLight);
-
-// const pointLightHelper = new THREE.PointLightHelper(pointLight);
-// scene.add(pointLightHelper);
-
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.1);
-directionalLight.castShadow = true;
-directionalLight.position.set(-0.5, 2, -6);
-scene.add(directionalLight);
-
-// const directionalLightHelper = new THREE.DirectionalLightHelper(
-//   directionalLight
-// );
-// scene.add(directionalLightHelper);
-
-const ambientLight = new THREE.AmbientLight(0x404040, 2);
-
-scene.add(ambientLight);
-
-//  functions
-
 function animate() {
   requestAnimationFrame(animate);
 
@@ -115,4 +87,5 @@ function render() {
   renderer.render(scene, camera);
 }
 
+document.body.appendChild(stats.dom);
 animate();
