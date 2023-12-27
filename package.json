@@ -18,7 +18,7 @@
     "source-map-js": "^1.0.2"
   },
   "scripts": {
-    "dev": "npx vite"
+    "dev": "cd client && npx vite"
   },
   "author": "github.com/Xenko10",
   "license": "ISC"
