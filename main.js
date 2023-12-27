@@ -12,6 +12,7 @@ import createWardrobe from "./objects/interior/wardrobe.js";
 import createLights from "./objects/lights.js";
 import createBookOpen from "./objects/interior/book_open.js";
 import createBookClosed from "./objects/interior/book_closed.js";
+import createLamp from "./objects/interior/lamp.js";
 
 let bookOpen, bookClosed;
 
@@ -53,6 +54,10 @@ const elementsToLoad = [
       return bookClosed;
     },
     position: new THREE.Vector3(0, 0.845, -1.9),
+  },
+  {
+    createFunction: createLamp,
+    position: new THREE.Vector3(-0.5, 0.8385, -1.9),
   },
 ];
 
