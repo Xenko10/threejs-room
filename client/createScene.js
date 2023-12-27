@@ -113,6 +113,9 @@ export default function createScene(camera) {
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
 
+    const lampOnMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const lampOffMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
+
     window.addEventListener(
       "click",
       (event) => {
@@ -126,15 +129,9 @@ export default function createScene(camera) {
         if (lampIntersects.length > 0) {
           lamp.children[0].visible = !lamp.children[0].visible;
           if (lamp.children[0].visible) {
-            lamp.children[2].children[12].material =
-              new THREE.MeshBasicMaterial({
-                color: 0xffffff,
-              });
+            lamp.children[2].children[12].material = lampOnMaterial;
           } else {
-            lamp.children[2].children[12].material =
-              new THREE.MeshStandardMaterial({
-                color: 0xffffff,
-              });
+            lamp.children[2].children[12].material = lampOffMaterial;
           }
         }
       },

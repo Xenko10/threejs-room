@@ -12,15 +12,13 @@ const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
   0.1,
-  1000
+  100
 );
 camera.position.set(4, 2, 1.5);
 
 const { scene, elementsToAddToScene } = createScene(camera);
 
 setTotalItemsToLoad(elementsToAddToScene.length + 1);
-
-updateProgressBar();
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -30,7 +28,7 @@ document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.maxPolarAngle = Math.PI / 2;
-controls.minDistance = -3;
+controls.minDistance = -10;
 controls.maxDistance = 10;
 
 window.addEventListener("resize", onWindowResize, false);
