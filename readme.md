@@ -3,7 +3,7 @@
 - [x] medium size room
 - [ ] window with roller blind (you can click roller blind to show/hide sunlight)
 - [x] desk with a book and a lamp (you can click on the lamp to turn it on/off)
-- [ ] frame with some photo
+- [x] frame with some photo
 - [ ] clock on the wall
 - [x] door
 - [x] wardrobe
