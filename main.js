@@ -12,9 +12,9 @@ import createWardrobe from "./objects/interior/wardrobe.js";
 import createLights from "./objects/lights.js";
 import createBookOpen from "./objects/interior/book_open.js";
 import createBookClosed from "./objects/interior/book_closed.js";
-import createLamp from "./objects/interior/lamp.js";
+import lampController from "./objects/layout/lampController.js";
 
-let bookOpen, bookClosed;
+let bookOpen, bookClosed, lamp;
 
 const elementsToLoad = [
   { createFunction: createFloor },
@@ -56,7 +56,10 @@ const elementsToLoad = [
     position: new THREE.Vector3(0, 0.845, -1.9),
   },
   {
-    createFunction: createLamp,
+    createFunction: () => {
+      lamp = lampController();
+      return lamp;
+    },
     position: new THREE.Vector3(-0.5, 0.8385, -1.9),
   },
 ];
@@ -108,16 +111,7 @@ function onWindowResize() {
 
 const stats = new Stats();
 
-function loadInterior() {
-  elementsToLoad.forEach(async (element) => {
-    const { createFunction, position, rotation } = element;
-    const loadedItem = await createFunction();
-    if (position) loadedItem.position.copy(position);
-    if (rotation) loadedItem.rotation.copy(rotation);
-    scene.add(loadedItem);
-    itemLoaded();
-  });
-
+function handleBookClick() {
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
 
@@ -145,6 +139,19 @@ function loadInterior() {
     },
     false
   );
+}
+
+function loadInterior() {
+  elementsToLoad.forEach(async (element) => {
+    const { createFunction, position, rotation } = element;
+    const loadedItem = await createFunction();
+    if (position) loadedItem.position.copy(position);
+    if (rotation) loadedItem.rotation.copy(rotation);
+    scene.add(loadedItem);
+    itemLoaded();
+  });
+
+  handleBookClick();
 
   document.body.appendChild(stats.dom);
   animate();
