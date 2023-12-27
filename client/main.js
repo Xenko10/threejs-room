@@ -64,7 +64,7 @@ const elementsToAddToScene = [
       lamp = lampController();
       return lamp;
     },
-    position: new THREE.Vector3(-0.25, 0.8385, -1.9),
+    position: new THREE.Vector3(-0.6, 0.8385, -1.9),
   },
   {
     createSceneElement: toggleBook,
@@ -161,11 +161,11 @@ function toggleLamp() {
       if (lampIntersects.length > 0) {
         lamp.children[0].visible = !lamp.children[0].visible;
         if (lamp.children[0].visible) {
-          lamp.children[2].children[3].material = new THREE.MeshBasicMaterial({
+          lamp.children[2].children[12].material = new THREE.MeshBasicMaterial({
             color: 0xffffff,
           });
         } else {
-          lamp.children[2].children[3].material =
+          lamp.children[2].children[12].material =
             new THREE.MeshStandardMaterial({
               color: 0xffffff,
             });
