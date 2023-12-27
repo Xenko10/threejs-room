@@ -13,6 +13,10 @@ import createLights from "./objects/lights.js";
 import createBookOpen from "./objects/interior/book_open.js";
 import createBookClosed from "./objects/interior/book_closed.js";
 import lampController from "./objects/layout/lampController.js";
+import {
+  setTotalItemsToLoad,
+  updateProgressBar,
+} from "./utils/loadingScreen.js";
 
 let openBook, closedBook, lamp;
 
@@ -70,19 +74,9 @@ const elementsToAddToScene = [
   },
 ];
 
-let itemsLoaded = 0;
-const totalItemsToLoad = elementsToAddToScene.length + 1;
+setTotalItemsToLoad(elementsToAddToScene.length + 1);
 
-const progressBar = document.getElementById("progress-bar");
-const progressBarContainer = document.querySelector(".progress-bar-container");
-
-function updateProgressBar() {
-  itemsLoaded++;
-  progressBar.value = (itemsLoaded / totalItemsToLoad) * 100;
-  if (itemsLoaded === totalItemsToLoad) {
-    progressBarContainer.remove();
-  }
-}
+updateProgressBar();
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x7da1df);
