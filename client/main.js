@@ -160,6 +160,16 @@ function toggleLamp() {
 
       if (lampIntersects.length > 0) {
         lamp.children[0].visible = !lamp.children[0].visible;
+        if (lamp.children[0].visible) {
+          lamp.children[2].children[3].material = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+          });
+        } else {
+          lamp.children[2].children[3].material =
+            new THREE.MeshStandardMaterial({
+              color: 0xffffff,
+            });
+        }
       }
     },
     false

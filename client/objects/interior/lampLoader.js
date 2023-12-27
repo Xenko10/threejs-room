@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
 export default function createLamp() {
@@ -7,6 +8,11 @@ export default function createLamp() {
         if (child.isMesh) {
           child.receiveShadow = true;
           child.castShadow = true;
+        }
+        if (child.name === "Sphere020") {
+          child.material = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+          });
         }
       });
       object.scale.set(0.01, 0.01, 0.01);
