@@ -14,69 +14,69 @@ import createBookOpen from "./objects/interior/book_open.js";
 import createBookClosed from "./objects/interior/book_closed.js";
 import lampController from "./objects/layout/lampController.js";
 
-let bookOpen, bookClosed, lamp;
+let openBook, closedBook, lamp;
 
-const elementsToLoad = [
-  { createFunction: createFloor },
-  { createFunction: createDoorWall },
-  { createFunction: createWindowWall },
-  { createFunction: createLights },
+const elementsToAddToScene = [
+  { createSceneElement: createFloor },
+  { createSceneElement: createDoorWall },
+  { createSceneElement: createWindowWall },
+  { createSceneElement: createLights },
   {
-    createFunction: createBed,
+    createSceneElement: createBed,
     position: new THREE.Vector3(-4.75, 0.08, 0.8),
     rotation: new THREE.Euler(0, Math.PI / 2),
   },
   {
-    createFunction: createDesk,
+    createSceneElement: createDesk,
     position: new THREE.Vector3(0.05, 0.1, -2),
     rotation: new THREE.Euler(0, Math.PI / 2),
   },
   {
-    createFunction: createChair,
+    createSceneElement: createChair,
     position: new THREE.Vector3(-0.25, -0.075, -1.75),
     rotation: new THREE.Euler(0, Math.PI),
   },
   {
-    createFunction: createWardrobe,
+    createSceneElement: createWardrobe,
     position: new THREE.Vector3(2.2, 0.1, -2),
   },
   {
-    createFunction: async () => {
-      bookOpen = await createBookOpen();
-      bookOpen.visible = false;
-      return bookOpen;
+    createSceneElement: async () => {
+      openBook = await createBookOpen();
+      openBook.visible = false;
+      return openBook;
     },
     position: new THREE.Vector3(0, 0.84, -1.9),
   },
   {
-    createFunction: async () => {
-      bookClosed = await createBookClosed();
-      return bookClosed;
+    createSceneElement: async () => {
+      closedBook = await createBookClosed();
+      return closedBook;
     },
     position: new THREE.Vector3(0, 0.845, -1.9),
   },
   {
-    createFunction: () => {
+    createSceneElement: () => {
       lamp = lampController();
       return lamp;
     },
     position: new THREE.Vector3(-0.25, 0.8385, -1.9),
   },
   {
-    createFunction: handleBookClick,
+    createSceneElement: toggleBook,
   },
   {
-    createFunction: handleLampClick,
+    createSceneElement: toggleLamp,
   },
 ];
 
 let itemsLoaded = 0;
-const totalItemsToLoad = elementsToLoad.length + 1;
+const totalItemsToLoad = elementsToAddToScene.length + 1;
 
 const progressBar = document.getElementById("progress-bar");
 const progressBarContainer = document.querySelector(".progress-bar-container");
 
-function itemLoaded() {
+function updateProgressBar() {
   itemsLoaded++;
   progressBar.value = (itemsLoaded / totalItemsToLoad) * 100;
   if (itemsLoaded === totalItemsToLoad) {
@@ -117,29 +117,32 @@ function onWindowResize() {
 
 const stats = new Stats();
 
-function handleBookClick() {
+function toggleBook() {
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
 
   window.addEventListener(
     "click",
     (event) => {
-      event.preventDefault();
-
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
       raycaster.setFromCamera(mouse, camera);
 
-      const bookIntersects = raycaster.intersectObjects([bookOpen, bookClosed]);
+      if (openBook && closedBook) {
+        const bookIntersects = raycaster.intersectObjects([
+          openBook,
+          closedBook,
+        ]);
 
-      if (bookIntersects.length > 0) {
-        if (bookOpen.visible) {
-          bookOpen.visible = false;
-          bookClosed.visible = true;
-        } else {
-          bookOpen.visible = true;
-          bookClosed.visible = false;
+        if (bookIntersects.length > 0) {
+          if (openBook.visible) {
+            openBook.visible = false;
+            closedBook.visible = true;
+          } else {
+            openBook.visible = true;
+            closedBook.visible = false;
+          }
         }
       }
     },
@@ -147,15 +150,13 @@ function handleBookClick() {
   );
 }
 
-function handleLampClick() {
+function toggleLamp() {
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
 
   window.addEventListener(
     "click",
     (event) => {
-      event.preventDefault();
-
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
@@ -171,21 +172,21 @@ function handleLampClick() {
   );
 }
 
-function loadInterior() {
-  elementsToLoad.forEach(async (element) => {
-    const { createFunction, position, rotation } = element;
-    const loadedItem = await createFunction();
-    if (loadedItem instanceof THREE.Object3D) {
-      if (position) loadedItem.position.copy(position);
-      if (rotation) loadedItem.rotation.copy(rotation);
-      scene.add(loadedItem);
+function loadSceneElements() {
+  elementsToAddToScene.forEach(async (element) => {
+    const { createSceneElement, position, rotation } = element;
+    const sceneElement = await createSceneElement();
+    if (sceneElement instanceof THREE.Object3D) {
+      if (position) sceneElement.position.copy(position);
+      if (rotation) sceneElement.rotation.copy(rotation);
+      scene.add(sceneElement);
     }
-    itemLoaded();
+    updateProgressBar();
   });
 
   document.body.appendChild(stats.dom);
   animate();
-  itemLoaded();
+  updateProgressBar();
 }
 
 function animate() {
@@ -202,4 +203,4 @@ function render() {
   renderer.render(scene, camera);
 }
 
-loadInterior();
+loadSceneElements();
