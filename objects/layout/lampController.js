@@ -11,7 +11,7 @@ export default function lampController() {
 
   loadLamp();
 
-  const spotLight = new THREE.SpotLight(0xffffff, 0.05, 0.5, Math.PI / 6);
+  const spotLight = new THREE.SpotLight(0xffffff, 0.05, 0.5, Math.PI / 4, 0.75);
   spotLight.castShadow = true;
   const targetObject = new THREE.Object3D();
 

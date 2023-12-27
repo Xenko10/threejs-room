@@ -60,7 +60,13 @@ const elementsToLoad = [
       lamp = lampController();
       return lamp;
     },
-    position: new THREE.Vector3(-0.5, 0.8385, -1.9),
+    position: new THREE.Vector3(-0.25, 0.8385, -1.9),
+  },
+  {
+    createFunction: handleBookClick,
+  },
+  {
+    createFunction: handleLampClick,
   },
 ];
 
@@ -125,9 +131,9 @@ function handleBookClick() {
 
       raycaster.setFromCamera(mouse, camera);
 
-      const intersects = raycaster.intersectObjects([bookOpen, bookClosed]);
+      const bookIntersects = raycaster.intersectObjects([bookOpen, bookClosed]);
 
-      if (intersects.length > 0) {
+      if (bookIntersects.length > 0) {
         if (bookOpen.visible) {
           bookOpen.visible = false;
           bookClosed.visible = true;
@@ -141,17 +147,41 @@ function handleBookClick() {
   );
 }
 
+function handleLampClick() {
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+
+  window.addEventListener(
+    "click",
+    (event) => {
+      event.preventDefault();
+
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+
+      const lampIntersects = raycaster.intersectObjects([lamp]);
+
+      if (lampIntersects.length > 0) {
+        lamp.children[0].visible = !lamp.children[0].visible;
+      }
+    },
+    false
+  );
+}
+
 function loadInterior() {
   elementsToLoad.forEach(async (element) => {
     const { createFunction, position, rotation } = element;
     const loadedItem = await createFunction();
-    if (position) loadedItem.position.copy(position);
-    if (rotation) loadedItem.rotation.copy(rotation);
-    scene.add(loadedItem);
+    if (loadedItem instanceof THREE.Object3D) {
+      if (position) loadedItem.position.copy(position);
+      if (rotation) loadedItem.rotation.copy(rotation);
+      scene.add(loadedItem);
+    }
     itemLoaded();
   });
-
-  handleBookClick();
 
   document.body.appendChild(stats.dom);
   animate();
