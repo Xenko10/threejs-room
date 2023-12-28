@@ -20,9 +20,11 @@ export default function createScene(camera) {
   let openBook, closedBook, lamp, windowObj;
 
   const elementsToAddToScene = [
-    { createSceneElement: createFloor },
+    {
+      createSceneElement: createFloor,
+      rotation: new THREE.Euler(-Math.PI / 2),
+    },
     { createSceneElement: createDoorWall },
-    { createSceneElement: () => toggleWindow(camera) },
     {
       createSceneElement: () => {
         const windowWall = createWindowWall();
@@ -30,6 +32,7 @@ export default function createScene(camera) {
         return windowWall;
       },
     },
+    { createSceneElement: () => toggleWindow(camera) },
     { createSceneElement: createLights },
     {
       createSceneElement: createBed,
@@ -210,5 +213,6 @@ export default function createScene(camera) {
       false
     );
   }
+
   return { scene, elementsToAddToScene };
 }

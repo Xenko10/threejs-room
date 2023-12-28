@@ -10,7 +10,7 @@ export default function createLamp() {
           child.castShadow = true;
         }
         if (child.name === "Sphere020") {
-          child.material = new THREE.MeshBasicMaterial({
+          child.material = new THREE.MeshStandardMaterial({
             color: 0xffffff,
           });
         }

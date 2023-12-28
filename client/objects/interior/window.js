@@ -82,6 +82,9 @@ export default function createWindow() {
   windowObj.children[6].rotation.z = Math.PI / 2;
   windowObj.children[7].rotation.z = Math.PI / 2;
 
+  windowObj.children[8].visible = false;
+  windowObj.children[9].visible = false;
+
   windowObj.children.forEach((wall) => {
     wall.receiveShadow = true;
     wall.castShadow = true;

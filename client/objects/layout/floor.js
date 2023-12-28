@@ -16,6 +16,5 @@ export default function createFloor() {
   );
   floor.receiveShadow = true;
   floor.castShadow = true;
-  floor.rotation.x = -Math.PI / 2;
   return floor;
 }
