@@ -77,7 +77,8 @@ export default function createScene(camera) {
     },
     {
       createSceneElement: createClock,
-      position: new THREE.Vector3(0, 1, 0),
+      position: new THREE.Vector3(-2.89, 1.6, -1.3),
+      rotation: new THREE.Euler(0, Math.PI / 2),
     },
   ];
 
