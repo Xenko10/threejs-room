@@ -80,6 +80,9 @@ export default function createScene(camera) {
       position: new THREE.Vector3(-2.89, 1.6, -1.3),
       rotation: new THREE.Euler(0, Math.PI / 2),
     },
+    {
+      createSceneElement: () => hoverOverClickableObjects(camera),
+    },
   ];
 
   function toggleBook(camera) {
@@ -138,6 +141,36 @@ export default function createScene(camera) {
             lamp.children[2].children[12].material = lampOnMaterial;
           } else {
             lamp.children[2].children[12].material = lampOffMaterial;
+          }
+        }
+      },
+      false
+    );
+  }
+
+  function hoverOverClickableObjects(camera) {
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    window.addEventListener(
+      "mousemove",
+      (event) => {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+
+        if (openBook && closedBook && lamp) {
+          const intersects = raycaster.intersectObjects([
+            openBook,
+            closedBook,
+            lamp,
+          ]);
+
+          if (intersects.length > 0) {
+            document.body.style.cursor = "pointer";
+          } else {
+            document.body.style.cursor = "default";
           }
         }
       },
