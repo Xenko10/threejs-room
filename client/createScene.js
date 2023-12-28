@@ -17,7 +17,7 @@ import createClock from "./objects/interior/clock.js";
 export default function createScene(camera) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x7da1df);
-  let openBook, closedBook, lamp, windowObj;
+  let windowObj, rollerBlind, openBook, closedBook, lamp;
 
   const elementsToAddToScene = [
     {
@@ -29,6 +29,7 @@ export default function createScene(camera) {
       createSceneElement: () => {
         const windowWall = createWindowWall();
         windowObj = windowWall.children[4];
+        rollerBlind = windowObj.children[2];
         return windowWall;
       },
     },
@@ -111,8 +112,8 @@ export default function createScene(camera) {
           const windowIntersects = raycaster.intersectObjects([windowObj]);
 
           if (windowIntersects.length > 0) {
-            windowObj.children[8].visible = !windowObj.children[8].visible;
-            windowObj.children[9].visible = !windowObj.children[9].visible;
+            rollerBlind.children[2].visible = !rollerBlind.children[2].visible;
+            rollerBlind.children[3].visible = !rollerBlind.children[3].visible;
           }
         }
       },
