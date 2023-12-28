@@ -8,10 +8,10 @@ import createDesk from "./objects/interior/desk.js";
 import createChair from "./objects/interior/chair.js";
 import createWardrobe from "./objects/interior/wardrobe.js";
 import createLights from "./objects/lights.js";
-import createBookOpen from "./objects/interior/book_open.js";
-import createBookClosed from "./objects/interior/book_closed.js";
+import createBookOpen from "./objects/interior/bookOpen.js";
+import createBookClosed from "./objects/interior/bookClosed.js";
 import lampController from "./objects/layout/lampController.js";
-import createPhotoFrame from "./objects/interior/photo_frame.js";
+import createPhotoFrame from "./objects/interior/photoFrame.js";
 import createClock from "./objects/interior/clock.js";
 
 export default function createScene(camera) {
