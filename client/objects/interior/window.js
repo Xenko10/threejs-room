@@ -41,6 +41,30 @@ export default function createWindow() {
       new THREE.MeshPhongMaterial({
         color: 0xffffff,
       })
+    ),
+    new THREE.Mesh(
+      new THREE.CapsuleGeometry(0.03, 0.6),
+      new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+      })
+    ),
+    new THREE.Mesh(
+      new THREE.CapsuleGeometry(0.03, 0.6),
+      new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+      })
+    ),
+    new THREE.Mesh(
+      new THREE.BoxGeometry(0.6, 0.95, 0.05),
+      new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+      })
+    ),
+    new THREE.Mesh(
+      new THREE.BoxGeometry(0.6, 0.95, 0.05),
+      new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+      })
     )
   );
 
@@ -50,6 +74,13 @@ export default function createWindow() {
   windowObj.children[3].position.set(0, 1.975, -2.5);
   windowObj.children[4].position.set(-0.675, 1.475, -2.5);
   windowObj.children[5].position.set(0.675, 1.475, -2.5);
+  windowObj.children[6].position.set(-0.35, 1.975, -2.45);
+  windowObj.children[7].position.set(0.35, 1.975, -2.45);
+  windowObj.children[8].position.set(-0.34, 1.475, -2.45);
+  windowObj.children[9].position.set(0.34, 1.475, -2.45);
+
+  windowObj.children[6].rotation.z = Math.PI / 2;
+  windowObj.children[7].rotation.z = Math.PI / 2;
 
   windowObj.children.forEach((wall) => {
     wall.receiveShadow = true;

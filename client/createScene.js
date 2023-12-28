@@ -17,12 +17,19 @@ import createClock from "./objects/interior/clock.js";
 export default function createScene(camera) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x7da1df);
-  let openBook, closedBook, lamp;
+  let openBook, closedBook, lamp, windowObj;
 
   const elementsToAddToScene = [
     { createSceneElement: createFloor },
     { createSceneElement: createDoorWall },
-    { createSceneElement: createWindowWall },
+    { createSceneElement: () => toggleWindow(camera) },
+    {
+      createSceneElement: () => {
+        const windowWall = createWindowWall();
+        windowObj = windowWall.children[4];
+        return windowWall;
+      },
+    },
     { createSceneElement: createLights },
     {
       createSceneElement: createBed,
@@ -84,6 +91,31 @@ export default function createScene(camera) {
       createSceneElement: () => hoverOverClickableObjects(camera),
     },
   ];
+
+  function toggleWindow(camera) {
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    window.addEventListener(
+      "click",
+      (event) => {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+
+        if (windowObj) {
+          const windowIntersects = raycaster.intersectObjects([windowObj]);
+
+          if (windowIntersects.length > 0) {
+            windowObj.children[8].visible = !windowObj.children[8].visible;
+            windowObj.children[9].visible = !windowObj.children[9].visible;
+          }
+        }
+      },
+      false
+    );
+  }
 
   function toggleBook(camera) {
     const raycaster = new THREE.Raycaster();
@@ -160,11 +192,12 @@ export default function createScene(camera) {
 
         raycaster.setFromCamera(mouse, camera);
 
-        if (openBook && closedBook && lamp) {
+        if (openBook && closedBook && lamp && windowObj) {
           const intersects = raycaster.intersectObjects([
             openBook,
             closedBook,
             lamp,
+            windowObj,
           ]);
 
           if (intersects.length > 0) {

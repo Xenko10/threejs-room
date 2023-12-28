@@ -1,7 +1,7 @@
 ## TO DO
 
 - [x] medium size room
-- [ ] window with roller blind (you can click roller blind to show/hide sunlight)
+- [x] window with roller blind (you can click roller blind to show/hide sunlight)
 - [x] desk with a book and a lamp (you can click on the lamp to turn it on/off)
 - [x] frame with some photo
 - [x] clock on the wall
