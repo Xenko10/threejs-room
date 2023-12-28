@@ -11,7 +11,8 @@ import createLights from "./objects/lights.js";
 import createBookOpen from "./objects/interior/book_open.js";
 import createBookClosed from "./objects/interior/book_closed.js";
 import lampController from "./objects/layout/lampController.js";
-import photo_frame from "./objects/interior/photo_frame.js";
+import createPhotoFrame from "./objects/interior/photo_frame.js";
+import createClock from "./objects/interior/clock.js";
 
 export default function createScene(camera) {
   const scene = new THREE.Scene();
@@ -71,8 +72,12 @@ export default function createScene(camera) {
       createSceneElement: () => toggleLamp(camera),
     },
     {
-      createSceneElement: photo_frame,
+      createSceneElement: createPhotoFrame,
       position: new THREE.Vector3(-1.85, 1.5, -2.35),
+    },
+    {
+      createSceneElement: createClock,
+      position: new THREE.Vector3(0, 1, 0),
     },
   ];
 
