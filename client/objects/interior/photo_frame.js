@@ -8,7 +8,10 @@ export default function createPhotoFrame() {
       map: image,
     })
   );
+  photo.castShadow = true;
+  photo.receiveShadow = true;
   photo.position.set(0, 0.25, -0.01);
+
   const frame = new THREE.Group();
   frame.add(
     new THREE.Mesh(
@@ -34,15 +37,20 @@ export default function createPhotoFrame() {
       new THREE.MeshStandardMaterial({
         color: 0xffffff,
       })
-    ),
-    photo
+    )
   );
   frame.children[0].position.set(0, 0.4, 0);
   frame.children[1].position.set(-0.1375, 0.25, 0);
   frame.children[2].position.set(0, 0.1, 0);
   frame.children[3].position.set(0.1375, 0.25, 0);
-  frame.castShadow = true;
-  frame.receiveShadow = true;
 
-  return frame;
+  frame.children.forEach((child) => {
+    child.castShadow = true;
+    child.receiveShadow = true;
+  });
+
+  const frameWithPhoto = new THREE.Group();
+  frameWithPhoto.add(frame, photo);
+
+  return frameWithPhoto;
 }
