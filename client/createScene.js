@@ -10,7 +10,7 @@ import createWardrobe from "./objects/interior/wardrobe.js";
 import createLights from "./objects/lights.js";
 import createBookOpen from "./objects/interior/bookOpen.js";
 import createBookClosed from "./objects/interior/bookClosed.js";
-import lampController from "./objects/layout/lampController.js";
+import lampWithLight from "./objects/layout/lampWithLight.js";
 import createPhotoFrame from "./objects/interior/photoFrame.js";
 import createClock from "./objects/interior/clock.js";
 
@@ -71,7 +71,7 @@ export default function createScene(camera) {
     },
     {
       createSceneElement: () => {
-        lamp = lampController();
+        lamp = lampWithLight();
         return lamp;
       },
       position: new THREE.Vector3(-0.6, 0.8385, -1.9),
@@ -161,6 +161,8 @@ export default function createScene(camera) {
     const lampOnMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
     const lampOffMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
 
+    let isLampOn = false;
+
     window.addEventListener(
       "click",
       (event) => {
@@ -171,12 +173,18 @@ export default function createScene(camera) {
 
         const lampIntersects = raycaster.intersectObjects([lamp]);
 
+        const lampBulb = lamp.children[2].children[12];
+        const lampLight = lamp.children[0];
+
         if (lampIntersects.length > 0) {
-          lamp.children[0].visible = !lamp.children[0].visible;
-          if (lamp.children[0].visible) {
-            lamp.children[2].children[12].material = lampOnMaterial;
+          if (isLampOn) {
+            lampBulb.material = lampOffMaterial;
+            lampLight.visible = false;
+            isLampOn = false;
           } else {
-            lamp.children[2].children[12].material = lampOffMaterial;
+            lampBulb.material = lampOnMaterial;
+            lampLight.visible = true;
+            isLampOn = true;
           }
         }
       },
