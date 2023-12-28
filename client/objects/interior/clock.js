@@ -41,7 +41,6 @@ export default function createClock() {
       new THREE.MeshStandardMaterial({ color: 0x000000 })
     )
   );
-  roman3.children[0].position.set(0, 0, 0);
   roman3.children[1].position.set(0.03, 0, 0);
   roman3.children[2].position.set(0.06, 0, 0);
   roman3.position.set(0.18, 0, 0);
@@ -64,7 +63,6 @@ export default function createClock() {
   roman6.children[0].rotation.z = Math.PI / 9;
   roman6.children[0].position.x = -0.03;
   roman6.children[1].rotation.z = -Math.PI / 9;
-  roman6.children[1].position.x = 0;
   roman6.children[2].position.set(0.04, 0, 0);
   roman6.position.set(0, -0.2, 0);
 
@@ -97,11 +95,11 @@ export default function createClock() {
       new THREE.MeshStandardMaterial({ color: 0x000000 })
     ),
     new THREE.Mesh(
-      new THREE.BoxGeometry(0.01, 0.25, 0.02),
+      new THREE.BoxGeometry(0.01, 0.2, 0.02),
       new THREE.MeshStandardMaterial({ color: 0x000000 })
     ),
     new THREE.Mesh(
-      new THREE.BoxGeometry(0.01, 0.3, 0.03),
+      new THREE.BoxGeometry(0.01, 0.25, 0.03),
       new THREE.MeshStandardMaterial({ color: 0x000000 })
     )
   );
@@ -121,16 +119,16 @@ export default function createClock() {
     const minuteAngle = (date.getMinutes() / 60) * Math.PI * 2;
     clockHands.children[1].rotation.z = -minuteAngle;
     clockHands.children[1].position.set(
-      0.12 * Math.sin(minuteAngle),
-      0.12 * Math.cos(minuteAngle),
+      0.09 * Math.sin(minuteAngle),
+      0.09 * Math.cos(minuteAngle),
       0
     );
 
     const secondAngle = (date.getSeconds() / 60) * Math.PI * 2;
     clockHands.children[2].rotation.z = -secondAngle;
     clockHands.children[2].position.set(
-      0.14 * Math.sin(secondAngle),
-      0.14 * Math.cos(secondAngle),
+      0.12 * Math.sin(secondAngle),
+      0.12 * Math.cos(secondAngle),
       0
     );
   }
