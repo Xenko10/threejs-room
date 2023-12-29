@@ -32,19 +32,19 @@ export default function createScene(camera) {
     {
       createSceneElement: async () => {
         doorClosed = await createDoorClosed();
-        doorClosed.position.set(-2.9, 0.1, 1.5);
-        doorClosed.rotation.y = Math.PI;
         return doorClosed;
       },
+      position: new THREE.Vector3(-2.9, 0.1, 1.5),
+      rotation: new THREE.Euler(0, Math.PI),
     },
     {
       createSceneElement: async () => {
         doorOpen = await createDoorOpen();
-        doorOpen.position.set(-2.9, 0.1, 1.5);
-        doorOpen.rotation.y = Math.PI;
         doorOpen.visible = false;
         return doorOpen;
       },
+      position: new THREE.Vector3(-2.9, 0.1, 1.5),
+      rotation: new THREE.Euler(0, Math.PI),
     },
     {
       createSceneElement: () => toggleDoor(camera),

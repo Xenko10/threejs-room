@@ -5,7 +5,7 @@ export default function createLights() {
 
   const pointLight = new THREE.PointLight(0xffffff, 0.75, 25);
   pointLight.castShadow = true;
-  pointLight.position.set(0, 2, 0);
+  pointLight.position.set(0, 2);
 
   const directionalLight = new THREE.DirectionalLight(0xffffff, 0.1);
   directionalLight.castShadow = true;

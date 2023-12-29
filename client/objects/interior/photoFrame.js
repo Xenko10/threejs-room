@@ -39,10 +39,10 @@ export default function createPhotoFrame() {
       })
     )
   );
-  frame.children[0].position.set(0, 0.4, 0);
-  frame.children[1].position.set(-0.1375, 0.25, 0);
-  frame.children[2].position.set(0, 0.1, 0);
-  frame.children[3].position.set(0.1375, 0.25, 0);
+  frame.children[0].position.set(0, 0.4);
+  frame.children[1].position.set(-0.1375, 0.25);
+  frame.children[2].position.set(0, 0.1);
+  frame.children[3].position.set(0.1375, 0.25);
 
   frame.children.forEach((child) => {
     child.castShadow = true;

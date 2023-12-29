@@ -15,8 +15,8 @@ export default function lampController() {
   spotLight.castShadow = true;
   const targetObject = new THREE.Object3D();
   spotLight.target = targetObject;
-  spotLight.position.set(0.09, 0.26, 0);
-  targetObject.position.set(0.099, 0.25, 0);
+  spotLight.position.set(0.09, 0.26);
+  targetObject.position.set(0.099, 0.25);
   spotLight.visible = false;
   lamp.add(spotLight, targetObject);
 

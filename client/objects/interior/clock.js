@@ -24,7 +24,7 @@ export default function createClock() {
   roman12.children[1].rotation.z = -Math.PI / 6;
   roman12.children[2].position.set(0.06, 0, 0);
   roman12.children[3].position.set(0.1, 0, 0);
-  roman12.position.set(-0.05, 0.2, 0);
+  roman12.position.set(-0.05, 0.2);
 
   const roman3 = new THREE.Group();
   roman3.add(
@@ -112,24 +112,21 @@ export default function createClock() {
 
     clockHands.children[0].position.set(
       0.04 * Math.sin(hourAngle),
-      0.04 * Math.cos(hourAngle),
-      0
+      0.04 * Math.cos(hourAngle)
     );
 
     const minuteAngle = (date.getMinutes() / 60) * Math.PI * 2;
     clockHands.children[1].rotation.z = -minuteAngle;
     clockHands.children[1].position.set(
       0.09 * Math.sin(minuteAngle),
-      0.09 * Math.cos(minuteAngle),
-      0
+      0.09 * Math.cos(minuteAngle)
     );
 
     const secondAngle = (date.getSeconds() / 60) * Math.PI * 2;
     clockHands.children[2].rotation.z = -secondAngle;
     clockHands.children[2].position.set(
       0.12 * Math.sin(secondAngle),
-      0.12 * Math.cos(secondAngle),
-      0
+      0.12 * Math.cos(secondAngle)
     );
   }
 
