@@ -10,6 +10,7 @@
   "version": "1.0.0",
   "main": "main.js",
   "dependencies": {
+    "dat.gui": "^0.7.9",
     "esbuild": "^0.19.10",
     "nanoid": "^3.3.7",
     "picocolors": "^1.0.0",
