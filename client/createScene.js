@@ -127,7 +127,8 @@ export default function createScene(camera) {
     },
     {
       createSceneElement: character,
-      position: new THREE.Vector3(0, 0.1),
+      position: new THREE.Vector3(0.25, 0.1, 1.5),
+      rotation: new THREE.Euler(0, Math.PI / 3),
     },
   ];
 
