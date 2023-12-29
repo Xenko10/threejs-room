@@ -16,6 +16,7 @@ import lampWithLight from "./objects/layout/lampWithLight.js";
 import createPhotoFrame from "./objects/interior/photoFrame.js";
 import createClock from "./objects/interior/clock.js";
 import createPoster from "./objects/interior/poster.js";
+import character from "./objects/character.js";
 
 export default function createScene(camera) {
   const scene = new THREE.Scene();
@@ -123,6 +124,10 @@ export default function createScene(camera) {
       createSceneElement: createPoster,
       position: new THREE.Vector3(-2.885, 1.5, -1.5),
       rotation: new THREE.Euler(0, Math.PI / 2),
+    },
+    {
+      createSceneElement: character,
+      position: new THREE.Vector3(0, 0.1),
     },
   ];
 

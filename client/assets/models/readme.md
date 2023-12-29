@@ -7,3 +7,4 @@
 - Door: https://www.cgtrader.com/free-3d-models/architectural/door/single-door-with-molds-frame-handle-and-hinges
 - "Desk lamp" (https://skfb.ly/6R9yQ) by KaramellGlass is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 - Wardrobe: https://www.cgtrader.com/free-3d-models/furniture/cabinet/wardrobe--24
+- Leonardo: https://www.mixamo.com
