@@ -4,6 +4,7 @@ import { GUI } from "dat.gui";
 
 export default function createCharacter() {
   return new Promise((resolve) => {
+    let character;
     let mixer;
     let modelReady = false;
     let activeAction;
@@ -25,6 +26,7 @@ export default function createCharacter() {
           }
         }
       });
+      character = object;
       resolve(object);
       mixer = new THREE.AnimationMixer(object);
       fbxLoader.load(
@@ -35,7 +37,46 @@ export default function createCharacter() {
           activeAction = animationAction;
           animationAction.play();
           animationActions.push(animationAction);
-          modelReady = true;
+          animationsFolder.add(animations, "idle");
+
+          fbxLoader.load("../assets/models/Leonardo@hiphop.fbx", (object) => {
+            object.animations[0].tracks.shift();
+            const animationAction = mixer.clipAction(object.animations[0]);
+            animationActions.push(animationAction);
+            animationsFolder.add(animations, "hiphop");
+            fbxLoader.load(
+              "../assets/models/Leonardo@twistdance.fbx",
+              (object) => {
+                object.animations[0].tracks.shift();
+                const animationAction = mixer.clipAction(object.animations[0]);
+                animationActions.push(animationAction);
+                animationsFolder.add(animations, "twistdance");
+                fbxLoader.load(
+                  "../assets/models/Leonardo@angry.fbx",
+                  (object) => {
+                    object.animations[0].tracks.shift();
+                    const animationAction = mixer.clipAction(
+                      object.animations[0]
+                    );
+                    animationActions.push(animationAction);
+                    animationsFolder.add(animations, "angry");
+                    fbxLoader.load(
+                      "../assets/models/Leonardo@jabcross.fbx",
+                      (object) => {
+                        object.animations[0].tracks.shift();
+                        const animationAction = mixer.clipAction(
+                          object.animations[0]
+                        );
+                        animationActions.push(animationAction);
+                        animationsFolder.add(animations, "jabcross");
+                        modelReady = true;
+                      }
+                    );
+                  }
+                );
+              }
+            );
+          });
         }
       );
     });
@@ -43,6 +84,23 @@ export default function createCharacter() {
     const animations = {
       idle: () => {
         setAction(animationActions[0]);
+        character.position.set(0.25, 0.1, 1.5);
+      },
+      hiphop: () => {
+        setAction(animationActions[1]);
+        character.position.set(0.25, 0.025, 1.5);
+      },
+      twistdance: () => {
+        setAction(animationActions[2]);
+        character.position.set(0.25, -0.025, 1.5);
+      },
+      angry: () => {
+        setAction(animationActions[3]);
+        character.position.set(0.25, 0.1, 1.5);
+      },
+      jabcross: () => {
+        setAction(animationActions[4]);
+        character.position.set(0.25, 0, 1.5);
       },
     };
 
@@ -57,7 +115,6 @@ export default function createCharacter() {
       }
     };
 
-    animationsFolder.add(animations, "idle");
     animationsFolder.open();
 
     const clock = new THREE.Clock();
