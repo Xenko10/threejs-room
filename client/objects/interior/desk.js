@@ -9,7 +9,7 @@ export default function createDesk() {
   deskWoodTexture.wrapT = THREE.RepeatWrapping;
   deskWoodTexture.repeat.set(2, 1);
   return new Promise((resolve) => {
-    new FBXLoader().load("../../assets/models/desk.fbx", (object) => {
+    new FBXLoader().load("./assets/models/desk.fbx", (object) => {
       object.traverse((child) => {
         if (child.isMesh) {
           child.receiveShadow = true;
