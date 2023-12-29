@@ -10,7 +10,7 @@ export default function createWardrobe() {
   woodTexture.repeat.set(3, 3);
 
   return new Promise((resolve) => {
-    new FBXLoader().load("../../assets/models/wardrobe.fbx", (object) => {
+    new FBXLoader().load("./assets/models/wardrobe.fbx", (object) => {
       object.traverse((child) => {
         if (child.isMesh) {
           child.receiveShadow = true;

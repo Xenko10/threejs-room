@@ -2,9 +2,7 @@ import * as THREE from "three";
 import createWindow from "../interior/window.js";
 
 export default function createWindowWall() {
-  const wallTexture = new THREE.TextureLoader().load(
-    "../../assets/img/wall.jpg"
-  );
+  const wallTexture = new THREE.TextureLoader().load("./assets/img/wall.jpg");
   const windowWall = new THREE.Group();
   const windowObj = createWindow();
 

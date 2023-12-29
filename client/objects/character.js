@@ -16,7 +16,7 @@ export default function createCharacter() {
 
     const fbxLoader = new FBXLoader();
 
-    fbxLoader.load("../assets/models/Leonardo.fbx", (object) => {
+    fbxLoader.load("./assets/models/Leonardo.fbx", (object) => {
       object.traverse((child) => {
         object.scale.set(0.01, 0.01, 0.01);
         if (child.isMesh) {
@@ -29,56 +29,48 @@ export default function createCharacter() {
       character = object;
       resolve(object);
       mixer = new THREE.AnimationMixer(object);
-      fbxLoader.load(
-        "../assets/models/Leonardo@standing_idle.fbx",
-        (object) => {
+      fbxLoader.load("./assets/models/Leonardo@standing_idle.fbx", (object) => {
+        object.animations[0].tracks.shift();
+        const animationAction = mixer.clipAction(object.animations[0]);
+        activeAction = animationAction;
+        animationAction.play();
+        animationActions.push(animationAction);
+        animationsFolder.add(animations, "idle");
+
+        fbxLoader.load("./assets/models/Leonardo@hiphop.fbx", (object) => {
           object.animations[0].tracks.shift();
           const animationAction = mixer.clipAction(object.animations[0]);
-          activeAction = animationAction;
-          animationAction.play();
           animationActions.push(animationAction);
-          animationsFolder.add(animations, "idle");
-
-          fbxLoader.load("../assets/models/Leonardo@hiphop.fbx", (object) => {
-            object.animations[0].tracks.shift();
-            const animationAction = mixer.clipAction(object.animations[0]);
-            animationActions.push(animationAction);
-            animationsFolder.add(animations, "hiphop");
-            fbxLoader.load(
-              "../assets/models/Leonardo@twistdance.fbx",
-              (object) => {
+          animationsFolder.add(animations, "hiphop");
+          fbxLoader.load(
+            "./assets/models/Leonardo@twistdance.fbx",
+            (object) => {
+              object.animations[0].tracks.shift();
+              const animationAction = mixer.clipAction(object.animations[0]);
+              animationActions.push(animationAction);
+              animationsFolder.add(animations, "twistdance");
+              fbxLoader.load("./assets/models/Leonardo@angry.fbx", (object) => {
                 object.animations[0].tracks.shift();
                 const animationAction = mixer.clipAction(object.animations[0]);
                 animationActions.push(animationAction);
-                animationsFolder.add(animations, "twistdance");
+                animationsFolder.add(animations, "angry");
                 fbxLoader.load(
-                  "../assets/models/Leonardo@angry.fbx",
+                  "./assets/models/Leonardo@jabcross.fbx",
                   (object) => {
                     object.animations[0].tracks.shift();
                     const animationAction = mixer.clipAction(
                       object.animations[0]
                     );
                     animationActions.push(animationAction);
-                    animationsFolder.add(animations, "angry");
-                    fbxLoader.load(
-                      "../assets/models/Leonardo@jabcross.fbx",
-                      (object) => {
-                        object.animations[0].tracks.shift();
-                        const animationAction = mixer.clipAction(
-                          object.animations[0]
-                        );
-                        animationActions.push(animationAction);
-                        animationsFolder.add(animations, "jabcross");
-                        modelReady = true;
-                      }
-                    );
+                    animationsFolder.add(animations, "jabcross");
+                    modelReady = true;
                   }
                 );
-              }
-            );
-          });
-        }
-      );
+              });
+            }
+          );
+        });
+      });
     });
 
     const animations = {

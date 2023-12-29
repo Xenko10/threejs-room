@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 export default function createPoster() {
-  const image = new THREE.TextureLoader().load("../../assets/img/poster.jpg");
+  const image = new THREE.TextureLoader().load("./assets/img/poster.jpg");
   const poster = new THREE.Mesh(
     new THREE.PlaneGeometry(1.2, 1.6),
     new THREE.MeshStandardMaterial({

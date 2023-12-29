@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 export default function createPhotoFrame() {
-  const image = new THREE.TextureLoader().load("../../assets/img/photo.jpg");
+  const image = new THREE.TextureLoader().load("./assets/img/photo.jpg");
   const photo = new THREE.Mesh(
     new THREE.PlaneGeometry(0.35, 0.375),
     new THREE.MeshStandardMaterial({

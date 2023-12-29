@@ -3,7 +3,7 @@ import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
 export default function createBed() {
   return new Promise((resolve) => {
-    new FBXLoader().load("../../assets/models/bed.fbx", (object) => {
+    new FBXLoader().load("./assets/models/bed.fbx", (object) => {
       object.traverse((child) => {
         if (child.isMesh) {
           child.receiveShadow = true;

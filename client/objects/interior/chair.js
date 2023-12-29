@@ -3,7 +3,7 @@ import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
 export default function createChair() {
   return new Promise((resolve) => {
-    new FBXLoader().load("../../assets/models/chair.fbx", (object) => {
+    new FBXLoader().load("./assets/models/chair.fbx", (object) => {
       object.traverse((child) => {
         if (child.isMesh) {
           child.receiveShadow = true;
