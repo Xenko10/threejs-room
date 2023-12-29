@@ -1,9 +1,9 @@
 import * as THREE from "three";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
-export default function createDoor() {
+export default function createDoorOpen() {
   return new Promise((resolve) => {
-    new FBXLoader().load("../../assets/models/door.fbx", (object) => {
+    new FBXLoader().load("../../assets/models/door_open.fbx", (object) => {
       object.traverse((child) => {
         if (child.isMesh) {
           child.receiveShadow = true;

@@ -17,14 +17,24 @@ import createClock from "./objects/interior/clock.js";
 export default function createScene(camera) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x7da1df);
-  let windowObj, rollerBlind, openBook, closedBook, lamp;
+  let windowObj, rollerBlind, openBook, closedBook, lamp, doorClosed, doorOpen;
 
   const elementsToAddToScene = [
     {
       createSceneElement: createFloor,
       rotation: new THREE.Euler(-Math.PI / 2),
     },
-    { createSceneElement: createDoorWall },
+    {
+      createSceneElement: async () => {
+        const doorWall = await createDoorWall();
+        doorClosed = doorWall.children[3];
+        doorOpen = doorWall.children[4];
+        return doorWall;
+      },
+    },
+    {
+      createSceneElement: () => toggleDoor(camera),
+    },
     {
       createSceneElement: () => {
         const windowWall = createWindowWall();
@@ -121,6 +131,34 @@ export default function createScene(camera) {
     );
   }
 
+  function toggleDoor(camera) {
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    window.addEventListener(
+      "click",
+      (event) => {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+
+        if (doorClosed && doorOpen) {
+          const doorIntersects = raycaster.intersectObjects([
+            doorClosed,
+            doorOpen,
+          ]);
+
+          if (doorIntersects.length > 0) {
+            doorClosed.visible = !doorClosed.visible;
+            doorOpen.visible = !doorOpen.visible;
+          }
+        }
+      },
+      false
+    );
+  }
+
   function toggleBook(camera) {
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
@@ -173,17 +211,14 @@ export default function createScene(camera) {
 
         const lampIntersects = raycaster.intersectObjects([lamp]);
 
-        const lampBulb = lamp.children[2].children[12];
-        const lampLight = lamp.children[0];
-
         if (lampIntersects.length > 0) {
           if (isLampOn) {
-            lampBulb.material = lampOffMaterial;
-            lampLight.visible = false;
+            lamp.children[2].children[12].material = lampOffMaterial;
+            lamp.children[0].visible = false;
             isLampOn = false;
           } else {
-            lampBulb.material = lampOnMaterial;
-            lampLight.visible = true;
+            lamp.children[2].children[12].material = lampOnMaterial;
+            lamp.children[0].visible = true;
             isLampOn = true;
           }
         }
@@ -204,12 +239,21 @@ export default function createScene(camera) {
 
         raycaster.setFromCamera(mouse, camera);
 
-        if (openBook && closedBook && lamp && windowObj) {
+        if (
+          openBook &&
+          closedBook &&
+          lamp &&
+          windowObj &&
+          doorClosed &&
+          doorOpen
+        ) {
           const intersects = raycaster.intersectObjects([
             openBook,
             closedBook,
             lamp,
             windowObj,
+            doorClosed,
+            doorOpen,
           ]);
 
           if (intersects.length > 0) {

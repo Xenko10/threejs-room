@@ -1,7 +1,8 @@
 import * as THREE from "three";
-import createDoor from "../interior/door.js";
+import createDoorClosed from "../interior/doorClosed.js";
+import createDoorOpen from "../interior/doorOpen.js";
 
-export default function createDoorWall() {
+export default async function createDoorWall() {
   const wallTexture = new THREE.TextureLoader().load(
     "../../assets/img/wall.jpg"
   );
@@ -43,14 +44,24 @@ export default function createDoorWall() {
     wall.castShadow = true;
   });
 
-  async function loadDoor() {
-    const door = await createDoor();
-    door.position.set(-2.9, 0.1, 1.5);
-    door.rotation.y = Math.PI;
-    doorWall.add(door);
+  let doorClosed, doorOpen;
+
+  async function loadDoorClosed() {
+    doorClosed = await createDoorClosed();
+    doorClosed.position.set(-2.9, 0.1, 1.5);
+    doorClosed.rotation.y = Math.PI;
+    doorWall.add(doorClosed);
   }
 
-  loadDoor();
+  async function loadDoorOpen() {
+    doorOpen = await createDoorOpen();
+    doorOpen.position.set(-2.9, 0.1, 1.5);
+    doorOpen.rotation.y = Math.PI;
+    doorOpen.visible = false;
+    doorWall.add(doorOpen);
+  }
+
+  await Promise.all([loadDoorClosed(), loadDoorOpen()]);
 
   return doorWall;
 }
