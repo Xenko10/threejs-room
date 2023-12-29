@@ -3,6 +3,8 @@ import * as THREE from "three";
 import createFloor from "./objects/layout/floor.js";
 import createWindowWall from "./objects/layout/windowWall.js";
 import createDoorWall from "./objects/layout/doorWall.js";
+import createDoorClosed from "./objects/interior/doorClosed.js";
+import createDoorOpen from "./objects/interior/doorOpen.js";
 import createBed from "./objects/interior/bed.js";
 import createDesk from "./objects/interior/desk.js";
 import createChair from "./objects/interior/chair.js";
@@ -25,11 +27,23 @@ export default function createScene(camera) {
       rotation: new THREE.Euler(-Math.PI / 2),
     },
     {
+      createSceneElement: createDoorWall,
+    },
+    {
       createSceneElement: async () => {
-        const doorWall = await createDoorWall();
-        doorClosed = doorWall.children[3];
-        doorOpen = doorWall.children[4];
-        return doorWall;
+        doorClosed = await createDoorClosed();
+        doorClosed.position.set(-2.9, 0.1, 1.5);
+        doorClosed.rotation.y = Math.PI;
+        return doorClosed;
+      },
+    },
+    {
+      createSceneElement: async () => {
+        doorOpen = await createDoorOpen();
+        doorOpen.position.set(-2.9, 0.1, 1.5);
+        doorOpen.rotation.y = Math.PI;
+        doorOpen.visible = false;
+        return doorOpen;
       },
     },
     {
