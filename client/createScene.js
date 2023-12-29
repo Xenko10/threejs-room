@@ -15,6 +15,7 @@ import createBookClosed from "./objects/interior/bookClosed.js";
 import lampWithLight from "./objects/layout/lampWithLight.js";
 import createPhotoFrame from "./objects/interior/photoFrame.js";
 import createClock from "./objects/interior/clock.js";
+import createPoster from "./objects/interior/poster.js";
 
 export default function createScene(camera) {
   const scene = new THREE.Scene();
@@ -108,15 +109,20 @@ export default function createScene(camera) {
     },
     {
       createSceneElement: createPhotoFrame,
-      position: new THREE.Vector3(-1.85, 1.5, -2.35),
+      position: new THREE.Vector3(-1.85, 1.5, -2.395),
     },
     {
       createSceneElement: createClock,
-      position: new THREE.Vector3(-2.89, 1.6, -1.3),
+      position: new THREE.Vector3(-2.89, 1.9, 0.2),
       rotation: new THREE.Euler(0, Math.PI / 2),
     },
     {
       createSceneElement: () => hoverOverClickableObjects(camera),
+    },
+    {
+      createSceneElement: createPoster,
+      position: new THREE.Vector3(-2.885, 1.5, -1.5),
+      rotation: new THREE.Euler(0, Math.PI / 2),
     },
   ];
 
