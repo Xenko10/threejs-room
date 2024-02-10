@@ -1,15 +1,20 @@
-## TO DO
+## How can I check out Three.js Room?
 
-- [x] medium size room
-- [x] window with roller blind (you can click roller blind to show/hide sunlight)
-- [x] desk with a book and a lamp (you can click on the lamp to turn it on/off)
-- [x] frame with some photo
-- [x] clock on the wall
-- [x] door
-- [x] wardrobe
-- [ ] music instrument (you can click it for sound effects)
-- [ ] mirror
-- [x] loading screen
-- [ ] laptop / computer setup
-- [x] make camera look only in certain range
-- [ ] try to write code as clean as possible
+You can admire Three.js Room here: https://github.com/Xenko10/threejs-room-hosted
+
+**IMPORTANT**
+
+Please note that the website may take longer to load than usual due to the size of some models.
+
+## How to install Three.js Room locally?
+
+1. Common setup. Clone the repository and install the dependencies.
+
+- git clone https://github.com/Xenko10/threejs-room.git
+- cd threejs-room
+- npm install
+
+2. Run the following.
+
+- npm start dev
+- open localhost:5173
