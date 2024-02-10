@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import Stats from "three/examples/jsm/libs/stats.module";
 
 import createScene from "./createScene.js";
 import {
@@ -41,8 +40,6 @@ function onWindowResize() {
   render();
 }
 
-const stats = new Stats();
-
 function loadSceneElements() {
   elementsToAddToScene.forEach(async (element) => {
     const { createSceneElement, position, rotation } = element;
@@ -55,7 +52,6 @@ function loadSceneElements() {
     updateProgressBar();
   });
 
-  document.body.appendChild(stats.dom);
   animate();
   updateProgressBar();
 }
@@ -65,8 +61,6 @@ function animate() {
   controls.update();
 
   render();
-
-  stats.update();
 }
 
 function render() {
