@@ -10,7 +10,7 @@ export default function createLights() {
   directionalLight.castShadow = true;
   directionalLight.position.set(-0.5, 2, -6);
 
-  const ambientLight = new THREE.AmbientLight(0x404040, 3.5);
+  const ambientLight = new THREE.AmbientLight(0x404040, 5);
 
   lights.add(pointLight, directionalLight, ambientLight);
   return lights;

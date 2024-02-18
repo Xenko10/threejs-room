@@ -16,5 +16,5 @@ Please note that the website may take longer to load than usual due to the size 
 
 2. Run the following.
 
-- npm start dev
+- npm run dev
 - open localhost:5173
