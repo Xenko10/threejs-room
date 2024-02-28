@@ -14,7 +14,7 @@ const camera = new THREE.PerspectiveCamera(
   100
 );
 
-camera.position.set(5.95, 3.4, 4.95);
+camera.position.set(2.83, 2.56, 5.17);
 
 const { scene, elementsToAddToScene } = createScene(camera);
 
@@ -30,7 +30,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.maxPolarAngle = Math.PI / 2;
 controls.minDistance = -10;
 controls.maxDistance = 10;
-controls.target = new THREE.Vector3(1.9, 1.3, 1.3);
+controls.target = new THREE.Vector3(-0.35, 0.52, 0.184);
 
 window.addEventListener("resize", onWindowResize, false);
 function onWindowResize() {
@@ -59,6 +59,8 @@ function loadSceneElements() {
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
+
+  console.log(camera.position, camera.rotation);
 
   render();
 }
